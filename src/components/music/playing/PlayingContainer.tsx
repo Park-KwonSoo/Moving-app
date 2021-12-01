@@ -32,7 +32,7 @@ const PlayingContainer = ({ navigation, route } : PlayingProps) => {
         React.useCallback(() => {
             const fetchData = async () => {
                 //toDo : playing을 가져와서 앨범아트로 세팅 등
-                State.Playing ? setPlayingState(true) : setPlayingState(false);
+                await TrackPlayer.getState() === State.Playing ? setPlayingState(true) : setPlayingState(false);
             };
             fetchData();
         }, [])

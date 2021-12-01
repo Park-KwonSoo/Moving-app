@@ -15,7 +15,7 @@ interface PlayingNowListProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 }
-const PlayingNowListPresenter = ({ navigation, route }: PlayingNowListProps) => {
+const PlayingNowListPresenter = ({ navigation, route, ...props }: PlayingNowListProps) => {
 
     return (
         <SafeAreaView style = {styles.container}>

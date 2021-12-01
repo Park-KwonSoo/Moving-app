@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator, BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
 
@@ -78,7 +78,10 @@ const PlaylistStack = () => {
 
 
 //탭 네비게이터 Props : 탭 버튼을 클릭하는 Props
-interface TabProps extends BottomTabHeaderProps {}
+interface TabProps {
+  navigation : NavigationProp<{}>;
+  route : RouteProp<{}>;
+}
 
 //탭 네비게이터 아이콘 Props : 탭 네비게이터 아이콘
 interface TabBarIconProps {
@@ -93,7 +96,6 @@ export default ({ navigation, route, ...props } : TabProps) => {
     useFocusEffect(
         React.useCallback(() => {
             const fetchData = async() => {
-              console.log(route.name);
               navigation.navigate(route.name);
             };
             fetchData();
@@ -107,6 +109,7 @@ export default ({ navigation, route, ...props } : TabProps) => {
             },
           }}
         >
+
           <Tab.Screen
             name = "Main"
             component = {MainStack}
