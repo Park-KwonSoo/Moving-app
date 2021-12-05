@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
 
 import MusicChartPresenter from './MusicChartPresenter';
+import PlayingPopupContainer from '../base/playingPopup';
 
 
 interface MusicChartProps {
@@ -20,10 +21,16 @@ const MusicChartContainer = ({ navigation, route, ...props } : MusicChartProps )
     );
 
     return (
+        <>
         <MusicChartPresenter
             navigation = {navigation}
             route = {route}
         />
+         <PlayingPopupContainer
+            navigation = {navigation}
+            route = {route}
+        />
+        </>
     );
 };
 

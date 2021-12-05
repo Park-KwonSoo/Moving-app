@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
+import { Track } from 'react-native-track-player';
 
 import {
     SafeAreaView,
@@ -12,18 +13,12 @@ import {
 import styles from './PlayingStyled';
 
 
-type PlayingInfo = {
-    imageUrl : string;
-    title : string;
-    artist : string;
-    length : string;
-};
 
 interface PlayingProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 
-    playingInfo : PlayingInfo | null;
+    nowTrackInfo : Track | null;
     playingState : boolean;
     onPlayingButton : () => void;
     onPrevButton : () => void;

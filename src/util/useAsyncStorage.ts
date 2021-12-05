@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 //asyncStorage에 값이 저장되어 있다면 해당 값을 리턴, 아니라면 initialValue로 설정
-const useAsyncStorage = (key : string, initialValue : string) => {
+const useAsyncStorage = (key : string, initialValue : string) : [string, (value : any) => Promise<void>] => {
 
-    const [storedValue, setStoredValue] = useState(initialValue);
+    const [storedValue, setStoredValue] = useState<string>(initialValue);
 
     useEffect(() => {
         AsyncStorage.getItem(key)

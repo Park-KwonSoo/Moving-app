@@ -4,16 +4,14 @@ import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/nat
 import PlayingPresenter from './PlayingPresenter';
 
 import useAsyncStorage from '../../../util/useAsyncStorage';
-import TrackPlayer, { State } from 'react-native-track-player';
+import TrackPlayer, {
+    Track,
+    State,
+    Event as TrackPlayerEvent,
+    RepeatMode,
+} from 'react-native-track-player';
 
 
-
-type PlayingInfo = {
-    imageUrl : string;
-    title : string;
-    artist : string;
-    length : string;
-};
 
 interface PlayingProps {
     navigation : NavigationProp<{}>;
@@ -22,19 +20,44 @@ interface PlayingProps {
 
 const PlayingContainer = ({ navigation, route } : PlayingProps) => {
 
-    const [playing, setPlaying] = useAsyncStorage('playing', '');
-
     const [playingState, setPlayingState] = useState<boolean>(false);
-    const [playingInfo, setPlayingInfo] = useState<PlayingInfo | null>(null);
+    const [nowTrackInfo, setNowTrackInfo] = useState<Track | null>(null);
 
 
     useFocusEffect(
         React.useCallback(() => {
             const fetchData = async () => {
                 //toDo : playing을 가져와서 앨범아트로 세팅 등
-                await TrackPlayer.getState() === State.Playing ? setPlayingState(true) : setPlayingState(false);
+                TrackPlayer.addEventListener(TrackPlayerEvent.PlaybackState, async (data : any) => {
+                    data.state === State.Playing ? setPlayingState(true) : setPlayingState(false);
+                });
+                TrackPlayer.addEventListener(TrackPlayerEvent.PlaybackQueueEnded, async (data : any) => {
+                    console.log(data);
+                });
+                TrackPlayer.addEventListener(TrackPlayerEvent.PlaybackError, async (data : any) => {
+                    console.log(data);
+                });
+                TrackPlayer.setRepeatMode(RepeatMode.Track);
+                await TrackPlayer.add({
+                    url : require('../../../../assets/music/1.m4a'),
+                    title : '임시용',
+                    artist : '박권수',
+                    contentType : 'audio/m4a',
+                });
+
+                // console.log(await TrackPlayer.getQueue());
+                // console.log(await TrackPlayer.getState());
+                // await TrackPlayer.play();
+                // console.log(await TrackPlayer.getState(), State.Playing);
+                // await TrackPlayer.getState() === State.Playing ? setPlayingState(true) : setPlayingState(false);
             };
+
             fetchData();
+
+            return () => {
+                TrackPlayer.pause();
+            };
+
         }, [])
     );
 
@@ -56,7 +79,7 @@ const PlayingContainer = ({ navigation, route } : PlayingProps) => {
             navigation = {navigation}
             route = {route}
 
-            playingInfo = {playingInfo}
+            nowTrackInfo = {nowTrackInfo}
             playingState = {playingState}
             onPlayingButton = {onPlayingButton}
             onPrevButton = {onPrevButton}
