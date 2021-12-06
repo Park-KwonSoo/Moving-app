@@ -1,2 +1,2 @@
-import PlayingContainer from './PlayingContainer';
-export default PlayingContainer;
+import PlayingPresenter from './PlayingPresenter';
+export default PlayingPresenter;

@@ -1,2 +1,2 @@
-import PlayingNowListContainer from './PlayingNowListContainer';
-export default PlayingNowListContainer;
+import PlayingNowListPresenter from './PlayingNowListPresenter';
+export default PlayingNowListPresenter;

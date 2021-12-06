@@ -348,9 +348,9 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNGestureHandler (1.10.3):
+  - RNGestureHandler (2.0.0):
     - React-Core
-  - RNScreens (3.9.0):
+  - RNScreens (3.10.0):
     - React-Core
     - React-RCTImage
   - SwiftAudioEx (0.14.5)
@@ -562,8 +562,8 @@ SPEC CHECKSUMS:
   ReactCommon: c0263c1a41509aeb94be3214fa7bc3b71eae5ef6
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNScreens: 4d79118be80f79fa1f4aa131909a1d6e86280af3
+  RNGestureHandler: 51c9f32f43720c3a1c7660690a843f33acbcf01f
+  RNScreens: 03ba504f8c98607ad1f07808e71040e0afa335ec
   SwiftAudioEx: bfaff9894c885aded7edfb0793e25165d55053d4
   Yoga: 9a08effa851c1d8cc1647691895540bc168ea65f
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

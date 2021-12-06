@@ -16,7 +16,8 @@ interface PlayingPopupProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
     nowTrackInfo : Track | null;
-    playingStatus : boolean;
+    playingState : boolean;
+    playingTime : number;
 
     onNextButton : () => void;
     onPrevButton : () => void;
@@ -50,7 +51,7 @@ const PlayingPopupPresenter = ({ navigation, route, ...props } : PlayingPopupPro
                         style = {styles.musicButton}
                         onPress = {props.onPlayAndPauseButton}
                     >
-                        <Image style = {styles.musicButtonImg} source = { props.playingStatus ? require('../../../../assets/pause.png') : require('../../../../assets/play.png')}/>
+                        <Image style = {styles.musicButtonImg} source = { props.playingState ? require('../../../../assets/pause.png') : require('../../../../assets/play.png')}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style = {styles.musicButton}
@@ -66,7 +67,7 @@ const PlayingPopupPresenter = ({ navigation, route, ...props } : PlayingPopupPro
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style = {{...styles.musicPlayingUnderbar, width : '50%'}} />
+            <View style = {{...styles.musicPlayingUnderbar, width : `${props.playingTime}%`}} />
         </View> : null
     );
 };

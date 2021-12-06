@@ -10,8 +10,11 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import styles from './PlayingStyled';
+import {
+    GestureDetector,
+} from 'react-native-gesture-handler';
 
+import styles from './PlayingStyled';
 
 
 interface PlayingProps {
@@ -20,16 +23,38 @@ interface PlayingProps {
 
     nowTrackInfo : Track | null;
     playingState : boolean;
-    onPlayingButton : () => void;
+    onPlayAndPauseButton : () => void;
     onPrevButton : () => void;
     onNextButton : () => void;
 }
-
 const PlayingPresenter = ({ navigation, route, ...props } : PlayingProps) => {
     return (
-        <SafeAreaView style = {styles.container}>
-            <Text>현재 재생중인 페이지 컴포넌트</Text>
-        </SafeAreaView>
+        <GestureDetector>
+            <SafeAreaView style = {styles.container}>
+                <View style = {styles.playingWrapper}>
+                    <View style = {styles.musicInfoWrapper}>
+                        <View style = {styles.musicAlbumCoverWrapper}>
+                            <Image style = {styles.musicAlbumCoverImg} source = {require('../../../../assets/play.png')}/>
+                        </View>
+                        <View style = {styles.musicTitleWrapper}>
+                            <TouchableOpacity>
+                                <Text style = {styles.musicTitleText}>{props.nowTrackInfo?.title}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style = {styles.musicArtistWrapper}>
+                            <TouchableOpacity>
+                                <Text style = {styles.musicArtistText}>{props.nowTrackInfo?.artist}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style = {styles.lyricsWrapper}>
+                        <Text>가사입니다.</Text>
+                    </View>
+                    <View style = {{...styles.musicBuffer, width : '50%'}}/>
+                    <View style = {styles.controllerWrapper} />
+                </View>
+            </SafeAreaView>
+        </GestureDetector>
     );
 };
 

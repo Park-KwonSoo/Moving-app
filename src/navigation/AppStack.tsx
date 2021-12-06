@@ -1,16 +1,22 @@
 import React from 'react';
 
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 
 import TabNavigator from './tab/TabNavigator';
-import PlayingNavigator from '../components/music/playing';
-import PlayinhNowListNavigator from '../components/music/playingNowList';
+import Music from '../components/music';
 
 const Stack = createStackNavigator();
 
 export default () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions = {{
+        gestureEnabled : true,
+      }}
+    >
       <Stack.Screen
         name="TabNavigator"
         component={TabNavigator}
@@ -19,17 +25,12 @@ export default () => {
         }}
       />
       <Stack.Screen
-        name = "PlayingNavigator"
-        component = {PlayingNavigator}
+        name = "MusicNavigator"
+        component = {Music}
         options = {{
           headerShown : false,
-        }}
-      />
-      <Stack.Screen
-        name = "PlayingNowListNavigator"
-        component = {PlayinhNowListNavigator}
-        options = {{
-          headerShown : false,
+          cardStyleInterpolator : CardStyleInterpolators.forVerticalIOS,
+          gestureDirection : 'vertical',
         }}
       />
     </Stack.Navigator>

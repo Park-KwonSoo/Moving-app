@@ -103,126 +103,121 @@ export default ({ navigation, route, ...props } : TabProps) => {
     );
 
     return (
-        <Tab.Navigator
-          screenOptions = {{
-            tabBarStyle : {
+      <Tab.Navigator>
+
+        <Tab.Screen
+          name = "Main"
+          component = {MainStack}
+          options = {{
+            headerShown : false,
+            tabBarLabel : '홈',
+            tabBarShowLabel : true,
+            tabBarIcon : ({ focused } : TabBarIconProps) => {
+              return (
+                focused ?
+                <Image source = {require('../../../assets/home-focused.png')}
+                  style = {{
+                    height : '90%',
+                    aspectRatio : 1,
+                  }}
+                />
+                :
+                <Image source = {require('../../../assets/home-unfocused.png')}
+                  style = {{
+                    height : '90%',
+                    aspectRatio : 1,
+                  }}
+                />
+              );
             },
           }}
-        >
+        />
 
-          <Tab.Screen
-            name = "Main"
-            component = {MainStack}
-            options = {{
-              headerShown : false,
-              tabBarLabel : '홈',
-              tabBarShowLabel : true,
-              tabBarIcon : ({ focused } : TabBarIconProps) => {
-                return (
-                  focused ?
-                  <Image source = {require('../../../assets/home-focused.png')}
-                    style = {{
-                      height : '90%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                  :
-                  <Image source = {require('../../../assets/home-unfocused.png')}
-                    style = {{
-                      height : '90%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                );
-              },
-            }}
-          />
+        <Tab.Screen
+          name = "MusicChart"
+          component = {MusicChartStack}
+          options = {{
+            headerShown : false,
+            tabBarLabel : '차트',
+            tabBarShowLabel : true,
+            tabBarIcon : ({ focused } : TabBarIconProps) => {
+              return (
+                focused ?
+                <Image source = {require('../../../assets/music-focused.png')}
+                  style = {{
+                    height : '80%',
+                    aspectRatio : 1,
+                  }}
+                />
+                :
+                <Image source = {require('../../../assets/music-unfocused.png')}
+                  style = {{
+                    height : '80%',
+                    aspectRatio : 1,
+                  }}
+                />
+              );
+            },
+          }}
+        />
 
-          <Tab.Screen
-            name = "MusicChart"
-            component = {MusicChartStack}
-            options = {{
-              headerShown : false,
-              tabBarLabel : '차트',
-              tabBarShowLabel : true,
-              tabBarIcon : ({ focused } : TabBarIconProps) => {
-                return (
-                  focused ?
-                  <Image source = {require('../../../assets/music-focused.png')}
-                    style = {{
-                      height : '80%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                  :
-                  <Image source = {require('../../../assets/music-unfocused.png')}
-                    style = {{
-                      height : '80%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                );
-              },
-            }}
-          />
+        <Tab.Screen
+          name = "Search"
+          component = {SearchStack}
+          options = {{
+            headerShown : false,
+            tabBarLabel : '검색',
+            tabBarShowLabel : true,
+            tabBarIcon : ({ focused } : TabBarIconProps) => {
+              return (
+                focused ?
+                <Image source = {require('../../../assets/search-focused.png')}
+                  style = {{
+                    height : '80%',
+                    aspectRatio : 1,
+                  }}
+                />
+                :
+                <Image source = {require('../../../assets/search-unfocused.png')}
+                  style = {{
+                    height : '80%',
+                    aspectRatio : 1,
+                  }}
+                />
+              );
+            },
+          }}
+        />
 
-          <Tab.Screen
-            name = "Search"
-            component = {SearchStack}
-            options = {{
-              headerShown : false,
-              tabBarLabel : '검색',
-              tabBarShowLabel : true,
-              tabBarIcon : ({ focused } : TabBarIconProps) => {
-                return (
-                  focused ?
-                  <Image source = {require('../../../assets/search-focused.png')}
-                    style = {{
-                      height : '80%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                  :
-                  <Image source = {require('../../../assets/search-unfocused.png')}
-                    style = {{
-                      height : '80%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                );
-              },
-            }}
-          />
+        <Tab.Screen
+          name = "Playlist"
+          component = {PlaylistStack}
+          options = {{
+            headerShown : false,
+            tabBarLabel : '보관함',
+            tabBarShowLabel : true,
+            tabBarIcon : ({ focused } : TabBarIconProps) => {
+              return (
+                focused ?
+                <Image source = {require('../../../assets/my-focused.png')}
+                  style = {{
+                    height : '90%',
+                    aspectRatio : 1,
+                  }}
+                />
+                :
+                <Image source = {require('../../../assets/my-unfocused.png')}
+                  style = {{
+                    height : '90%',
+                    aspectRatio : 1,
+                  }}
+                />
+              );
+            },
+          }}
+        />
 
-          <Tab.Screen
-            name = "Playlist"
-            component = {PlaylistStack}
-            options = {{
-              headerShown : false,
-              tabBarLabel : '보관함',
-              tabBarShowLabel : true,
-              tabBarIcon : ({ focused } : TabBarIconProps) => {
-                return (
-                  focused ?
-                  <Image source = {require('../../../assets/my-focused.png')}
-                    style = {{
-                      height : '90%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                  :
-                  <Image source = {require('../../../assets/my-unfocused.png')}
-                    style = {{
-                      height : '90%',
-                      aspectRatio : 1,
-                    }}
-                  />
-                );
-              },
-            }}
-          />
-
-        </Tab.Navigator>
+      </Tab.Navigator>
     );
 };
 
