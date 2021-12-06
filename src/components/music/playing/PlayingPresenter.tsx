@@ -19,13 +19,13 @@ import styles from './PlayingStyled';
 
 interface PlayingProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{}>;
+    route : RouteProp<{
+        params : {
+            name : string
+        }
+    }, 'params'>;
 
-    nowTrackInfo : Track | null;
-    playingState : boolean;
-    onPlayAndPauseButton : () => void;
-    onPrevButton : () => void;
-    onNextButton : () => void;
+    nowTrackInfo : Track | undefined;
 }
 const PlayingPresenter = ({ navigation, route, ...props } : PlayingProps) => {
     return (
@@ -50,8 +50,6 @@ const PlayingPresenter = ({ navigation, route, ...props } : PlayingProps) => {
                     <View style = {styles.lyricsWrapper}>
                         <Text>가사입니다.</Text>
                     </View>
-                    <View style = {{...styles.musicBuffer, width : '50%'}}/>
-                    <View style = {styles.controllerWrapper} />
                 </View>
             </SafeAreaView>
         </GestureDetector>

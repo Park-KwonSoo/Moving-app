@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
         flexDirection : 'column',
 
         paddingHorizontal : '5%',
+        height : '70%',
     },
 
     playingWrapper : {
-        borderWidth : 1,
         height : '95%',
 
         display : 'flex',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     musicTitleText : {
         fontSize : 21,
         fontWeight : '600',
-        color : '#343434',
+        color : '#303a52',
     },
 
     musicArtistWrapper : {
@@ -73,9 +73,8 @@ const styles = StyleSheet.create({
     },
 
     lyricsWrapper : {
-        marginVertical : '5%',
+        marginTop : '10%',
         width : '100%',
-        borderWidth : 1,
 
         display : 'flex',
         flexDirection : 'column',
@@ -84,21 +83,6 @@ const styles = StyleSheet.create({
         paddingVertical : '2%',
         paddingHorizontal : '3%',
     },
-
-    musicBuffer : {
-        marginTop : '15%',
-        height : 6,
-        backgroundColor : '#9e579d',
-    },
-
-    controllerWrapper : {
-        marginTop : '1%',
-        display : 'flex',
-        flexDirection : 'row',
-        justifyContent : 'space-around',
-        alignItems : 'center',
-    },
-
 
 });
 

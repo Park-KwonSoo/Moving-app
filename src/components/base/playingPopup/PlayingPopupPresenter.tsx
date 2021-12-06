@@ -15,7 +15,8 @@ import styles from './PlayingPopupStyled';
 interface PlayingPopupProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
-    nowTrackInfo : Track | null;
+
+    nowTrackInfo : Track | undefined;
     playingState : boolean;
     playingTime : number;
 
@@ -51,7 +52,11 @@ const PlayingPopupPresenter = ({ navigation, route, ...props } : PlayingPopupPro
                         style = {styles.musicButton}
                         onPress = {props.onPlayAndPauseButton}
                     >
-                        <Image style = {styles.musicButtonImg} source = { props.playingState ? require('../../../../assets/pause.png') : require('../../../../assets/play.png')}/>
+                        <Image style = {styles.musicButtonImg} source = {
+                            props.playingState ?
+                            require('../../../../assets/pause.png')
+                            : require('../../../../assets/play.png')}
+                        />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style = {styles.musicButton}

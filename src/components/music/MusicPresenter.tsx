@@ -6,6 +6,7 @@ import {
     View,
     TouchableOpacity,
     Text,
+    Image,
 } from 'react-native';
 
 import styles from './MusicStyled';
@@ -13,12 +14,23 @@ import styles from './MusicStyled';
 
 interface MusicProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{}>;
+    route : RouteProp<{
+        params : {
+            name : string
+        }
+    }, 'params'>;
 
     nowComponent : string | undefined;
     setNowComponent : Dispatch<SetStateAction<string | undefined>>;
 
     children? : React.ReactChild | React.ReactChild[];
+
+    playingState : boolean;
+    playingTime : number;
+
+    onPlayAndPauseButton : () => void;
+    onPrevButton : () => void;
+    onNextButton : () => void;
 }
 const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) => {
     return (
@@ -57,6 +69,43 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
                 </TouchableOpacity>
             </View>
             {children}
+            <View style = {styles.footerWrapper}>
+                <View style = {{...styles.musicBuffer, width : `${props.playingTime}%`}}/>
+                <View style = {styles.controllerWrapper}>
+                    <TouchableOpacity style = {styles.modeButton}>
+                        <Image style = {styles.modeButtonImg} source = {require('../../../assets/pause.png')} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress = {props.onPrevButton}
+                        style = {styles.controlButton}
+                    >
+                        <Image style = {styles.controlButtomImg} source = {require('../../../assets/prev.png')}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress = {props.onPlayAndPauseButton}
+                        style = {styles.controlButton}
+                    >
+                        <Image style = {styles.controlButtomImg} source = {
+                            props.playingState ?
+                            require('../../../assets/pause.png') :
+                            require('../../../assets/play.png')}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress = {props.onNextButton}
+                        style = {styles.controlButton}
+                    >
+                        <Image style = {styles.controlButtomImg} source = {require('../../../assets/next.png')}/>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style = {styles.modeButton}>
+                        <Image style = {styles.modeButtonImg} source = {require('../../../assets/pause.png')} />
+                    </TouchableOpacity>
+                </View>
+            </View>
         </SafeAreaView>
     );
 };

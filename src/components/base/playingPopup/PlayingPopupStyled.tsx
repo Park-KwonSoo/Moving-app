@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         fontSize : 16,
         marginBottom : '2%',
         fontWeight: '500',
+        color : '#303a52',
     },
 
     musicInfoArtist : {

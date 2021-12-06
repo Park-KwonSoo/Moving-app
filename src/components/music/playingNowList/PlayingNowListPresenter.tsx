@@ -7,6 +7,8 @@ import {
     View,
     Text,
     TouchableOpacity,
+    FlatList,
+    Image,
 } from 'react-native';
 
 import {
@@ -18,13 +20,16 @@ import styles from './PlayingNowListStyled';
 
 interface PlayingNowListProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{}>;
+    route : RouteProp<{
+        params : {
+            name : string
+        }
+    }, 'params'>;
 
-    nowTrackInfo : Track | null;
-    playingState : boolean;
-    onPlayAndPauseButton : () => void;
-    onPrevButton : () => void;
-    onNextButton : () => void;
+    nowTrackInfo : Track | undefined;
+
+    nowTrackQueue : Track[];
+    onPlayThisMusic : (index : number) => void;
 }
 const PlayingNowListPresenter = ({ navigation, route, ...props }: PlayingNowListProps) => {
     return (
@@ -42,6 +47,30 @@ const PlayingNowListPresenter = ({ navigation, route, ...props }: PlayingNowList
                         <Text style = {styles.topButtonTxt}>검색</Text>
                     </TouchableOpacity>
                 </View>
+                <FlatList
+                    style = {styles.listWrapper}
+                    data = {props.nowTrackQueue}
+                    renderItem = {({ item }) => {
+                        return (
+                            <View style = {styles.eachListWrapper}>
+                                <TouchableOpacity style = {styles.eachListAlbumWrapper}>
+                                    <Image style = {styles.eachListAlbumImg} source = {require('../../../../assets/pause.png')} />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style = {styles.eachListMusicInfo}
+                                    onPress = {() => props.onPlayThisMusic(item.index)}
+                                >
+                                    <Text style = {
+                                        props.nowTrackInfo !== undefined  && props.nowTrackInfo.index === item.index ?
+                                        styles.eachListTitleTextSelect : styles.eachListTitleTextUnselect
+                                    }>{item.title}</Text>
+                                    <Text style = {styles.eachListArtistText}>{item.artist}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        );
+                    }}
+                    ItemSeparatorComponent = {() => <View style = {styles.seperator}/>}
+                />
             </SafeAreaView>
         </GestureDetector>
     );

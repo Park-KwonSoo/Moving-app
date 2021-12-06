@@ -12,6 +12,9 @@ const App = () => {
     TrackPlayer.addEventListener(TrackPlayerEvent.PlaybackQueueEnded, async (data : any) => {
       console.log(await TrackPlayer.getRepeatMode());
     });
+    TrackPlayer.addEventListener(TrackPlayerEvent.PlaybackTrackChanged, async (data : any) => {
+      // console.log(data);
+    });
   };
 
   useEffect(() => {
