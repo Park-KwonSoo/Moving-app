@@ -61,9 +61,10 @@ const PlayingNowListPresenter = ({ navigation, route, ...props }: PlayingNowList
                                     onPress = {() => props.onPlayThisMusic(item)}
                                 >
                                     <Text style = {
-                                        props.nowTrackInfo?.artist === item.artist
-                                        && props.nowTrackInfo?.title === item.title
-                                        && props.nowTrackInfo?.album === item.album
+                                        item.artist === props.nowTrackInfo?.artist
+                                        && item.title === props.nowTrackInfo?.title
+                                        && item.album === props.nowTrackInfo?.album
+                                        && item.index === props.nowTrackInfo?.index
                                         ?
                                         styles.eachListTitleTextSelect : styles.eachListTitleTextUnselect
                                     }>{item.title}</Text>

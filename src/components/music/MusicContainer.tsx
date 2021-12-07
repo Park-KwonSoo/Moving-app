@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect,  NavigationProp, RouteProp } from '@react-navigation/native';
 
-import useAsyncStorage from '../../util/useAsyncStorage';
 import { onPlayOrPause, onNext, onPrev } from '../../util/TrackPlayerUtil';
 import TrackPlayer, {
     Track,
     State,
+    RepeatMode,
 } from 'react-native-track-player';
 import { Gesture } from 'react-native-gesture-handler';
 
@@ -31,6 +31,8 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
     const [playingTime, setPlayingTime] = useState<number>(0);
     const [nowComponent, setNowComponent] = useState<string | undefined | never>('');
 
+    const [loopMode, setLoopMode] = useState<RepeatMode>(RepeatMode.Off);
+    const [shuffleMode, setShuffleMode] = useState<boolean>(false);
 
 
     useFocusEffect(
@@ -41,9 +43,14 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
                 const nowTrack = await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());
                 setNowTrackInfo(nowTrack);
                 setNowTrackQueue(await TrackPlayer.getQueue());
+
                 //현재 재생중 상태 확인
                 const currentState = await TrackPlayer.getState();
                 setPlayingState(currentState === State.Playing ? true : false);
+
+                //현재 반복 모드로 설정
+                const repeatMode = await TrackPlayer.getRepeatMode();
+                setLoopMode(repeatMode);
             };
 
             fetchData();
@@ -76,6 +83,33 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
         setPlayingState(true);
 
         setNowTrackInfo(await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack()));
+    };
+
+    //반복 모드를 설정
+    const onLoopChange = async () : Promise<void> => {
+        //꺼진 상태에서 클릭 -> 한곡 재생
+        if (loopMode === RepeatMode.Off) {
+            await TrackPlayer.setRepeatMode(RepeatMode.Track);
+            setLoopMode(RepeatMode.Track);
+        }
+
+        //한곡 재생에서 클릭 -> 전체 재생
+        else if (loopMode === RepeatMode.Track) {
+            await TrackPlayer.setRepeatMode(RepeatMode.Queue);
+            setLoopMode(RepeatMode.Queue);
+        }
+
+        //전체 재생에서 클릭 -> 반복 끔
+        else if (loopMode === RepeatMode.Queue) {
+            await TrackPlayer.setRepeatMode(RepeatMode.Off);
+            setLoopMode(RepeatMode.Off);
+        }
+    };
+
+    //섞기 모드를 설정
+    const onShuffleChange = async () : Promise<void> => {
+        //toDo : Shuffle Mode 설정하기
+        setShuffleMode(!shuffleMode);
     };
 
 
@@ -115,6 +149,12 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
             onPlayAndPauseButton = {onPlayAndPauseButton}
             onPrevButton = {onPrevButton}
             onNextButton = {onNextButton}
+
+            loopMode = {loopMode}
+            onLoopChange = {onLoopChange}
+
+            shuffleMode = {shuffleMode}
+            onShuffleChange = {onShuffleChange}
         >
             {
                 nowComponent === 'Playing' ?

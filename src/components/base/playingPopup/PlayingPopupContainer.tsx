@@ -1,13 +1,11 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
-import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import PlayingPopupPresenter from './PlayingPopupPresenter';
 
-import useAsyncStorage from '../../../util/useAsyncStorage';
 import { onPlayOrPause, onNext, onPrev } from '../../../util/TrackPlayerUtil';
 import TrackPlayer, {
     Track,
-    State,
 } from 'react-native-track-player';
 
 
@@ -25,10 +23,7 @@ interface PlayingPopupProps {
 
 const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupProps) => {
 
-
     const [playingTime, setPlayingTime] = useState<number>(0);
-
-
 
     //다음 곡 재생 버튼
     const onNextButton = async () : Promise<void> => {
@@ -69,7 +64,7 @@ const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupPro
                 setPlayingTime((position / duration) * 100);
             });
         });
-    }, [props.nowTrackInfo, playingTime]);
+    }, [props.nowTrackInfo, props.playingState, playingTime]);
 
     useEffect(() => {
         return () => {};

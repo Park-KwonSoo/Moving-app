@@ -20,6 +20,7 @@ const MainContainer = ({ navigation, route, ...props } : MainProps ) => {
     const [nowTrackInfo, setNowTrackInfo] = useState<Track | undefined>(undefined);
     const [playingState, setPlayingState] = useState<boolean>(false);
 
+
     useFocusEffect(
         React.useCallback(() => {
             const fetchData = async () : Promise<void> => {
@@ -32,7 +33,6 @@ const MainContainer = ({ navigation, route, ...props } : MainProps ) => {
                     setPlayingState(currentStatus === State.Playing ? true : false);
                 }
             };
-
             fetchData();
         }, [])
     );

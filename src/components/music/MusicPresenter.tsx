@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
+import { RepeatMode } from 'react-native-track-player';
 
 import {
     SafeAreaView,
@@ -31,6 +32,12 @@ interface MusicProps {
     onPlayAndPauseButton : () => void;
     onPrevButton : () => void;
     onNextButton : () => void;
+
+    loopMode : RepeatMode;
+    onLoopChange : () => void;
+
+    shuffleMode : boolean;
+    onShuffleChange : () => void;
 }
 const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) => {
     return (
@@ -72,8 +79,19 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
             <View style = {styles.footerWrapper}>
                 <View style = {{...styles.musicBuffer, width : `${props.playingTime}%`}}/>
                 <View style = {styles.controllerWrapper}>
-                    <TouchableOpacity style = {styles.modeButton}>
-                        <Image style = {styles.modeButtonImg} source = {require('../../../assets/pause.png')} />
+                    <TouchableOpacity
+                        onPress = {props.onLoopChange}
+                        style = {styles.modeButton}
+                    >
+                        <Image style = {styles.modeButtonImg} source = {
+                            props.loopMode === RepeatMode.Off ?
+                            require('../../../assets/loop-unselect.png') :
+
+                            props.loopMode === RepeatMode.Track ?
+                            require('../../../assets/loop-all.png') :
+
+                            require('../../../assets/loop-all.png')
+                        }/>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -85,7 +103,7 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
 
                     <TouchableOpacity
                         onPress = {props.onPlayAndPauseButton}
-                        style = {styles.controlButton}
+                        style = {{ ...styles.controlButton, width : '12%' }}
                     >
                         <Image style = {styles.controlButtomImg} source = {
                             props.playingState ?
@@ -101,8 +119,15 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
                         <Image style = {styles.controlButtomImg} source = {require('../../../assets/next.png')}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style = {styles.modeButton}>
-                        <Image style = {styles.modeButtonImg} source = {require('../../../assets/pause.png')} />
+                    <TouchableOpacity
+                        onPress = {props.onShuffleChange}
+                        style = {styles.modeButton}
+                    >
+                        <Image style = {styles.modeButtonImg} source = {
+                            props.shuffleMode ?
+                            require('../../../assets/shuffle-select.png') :
+                            require('../../../assets/shuffle-unselect.png')
+                        }/>
                     </TouchableOpacity>
                 </View>
             </View>

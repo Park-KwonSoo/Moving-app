@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         marginHorizontal : '10%',
 
         paddingHorizontal : '1%',
-        paddingVertical : '5%',
+        paddingVertical : '2.5%',
 
         borderWidth : 0.5,
         borderColor : '#dedede',
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     },
 
     searchBar : {
-        width : '60%',
+        width : '70%',
         borderBottomWidth : 0.5,
-        borderBottomColor : '#dedede',
+        borderBottomColor : '#303a52',
 
         paddingVertical : '1%',
         paddingHorizontal : '1%',
@@ -45,6 +45,19 @@ const styles = StyleSheet.create({
 
     searchButton : {
         backgroundColor : 'transparent',
+        height : '100%',
+        width : '7%',
+        display : 'flex',
+        flexDirection : 'row',
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+
+    searchButtonImg : {
+        height : '100%',
+        width : '100%',
+        aspectRatio : 1,
+        resizeMode : 'contain',
     },
 
     partitionLine : {

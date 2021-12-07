@@ -28,7 +28,7 @@ interface PlayingPopupProps {
 }
 const PlayingPopupPresenter = ({ navigation, route, ...props } : PlayingPopupProps) => {
     return (
-        props.nowTrackInfo ?
+        props.nowTrackInfo !== undefined ?
         <View style = {styles.container}>
             {/* <View style = {styles.albumCoverImgWrapper}>
                 <Text>앨범커버입니다.</Text>

@@ -39,7 +39,7 @@ export const onNext = async(playingState : boolean) : Promise<Track> => {
  */
 export const onPrev = async (playingState : boolean) : Promise<Track> => {
 
-    const position = await TrackPlayer.getPosition();
+    const position : number = await TrackPlayer.getPosition();
 
     //만약 재생한지 3초가 지났다면 현재 곡을 다시 재생한다.
     if (position >= 3) {
@@ -59,7 +59,7 @@ export const onPrev = async (playingState : boolean) : Promise<Track> => {
         }
         //만약 첫번째 곡이라면 마지막 곡을 재생
         else {
-            const queue = await TrackPlayer.getQueue();
+            const queue : Track[] = await TrackPlayer.getQueue();
             await TrackPlayer.skip(queue.length - 1);
 
             if (playingState)   { await TrackPlayer.play(); }
@@ -72,17 +72,58 @@ export const onPrev = async (playingState : boolean) : Promise<Track> => {
 
 /**
  * 한 곡을 현재 재생중인 목록의 바로 다음 곡으로 추가함.
+ * 같은 곡 추가시 index 번호를 붙여 구분한다.
  * @param track : 추가할 곡
  */
-export const addNowTrackToPlayingListToNext = async(track : Track) : Promise<void> => {
-    const currentTrackIndex = await TrackPlayer.getCurrentTrack();
-    await TrackPlayer.add(track, currentTrackIndex);
+export const addTrackToPlayingListToNext = async(track : Track) : Promise<void> => {
+    //같은 트랙들을 찾는다.
+    const { title, artist, album  } = track;
+    const queue : Track[] = await TrackPlayer.getQueue();
+    const sameTrackList : Track[] = await Promise.all(queue.filter((item : Track) => {
+        return (
+            item.title === title
+            && item.artist === artist
+            && item.album === album
+        );
+    }));
+
+    //index값 추가하여 track에 추가함
+    const currentTrackIndex : number = await TrackPlayer.getCurrentTrack();
+
+    if (currentTrackIndex === queue.length - 1) {
+        await TrackPlayer.add({
+            ...track,
+            index : sameTrackList.length,
+        });
+    } else {
+        await TrackPlayer.add({
+            ...track,
+            index : sameTrackList.length,
+        }, currentTrackIndex + 1);
+    }
+
 };
 
 /**
  * 한 곡을 현재 재생중인 목록의 마지막으로 추가함
+ * 같은 곡 추가시 index 번호를 붙여 구분한다.
  * @param track : 추가할 곡
  */
-export const addNowTrackToPlayingListToLast = async(track : Track) : Promise<void> => {
-    await TrackPlayer.add(track);
+export const addTrackToPlayingListToLast = async(track : Track) : Promise<void> => {
+    //같은 트랙들을 찾는다.
+    const { title, artist, album  } = track;
+    const queue : Track[] = await TrackPlayer.getQueue();
+    const sameTrackList : Track[] = await Promise.all(queue.filter((item : Track) => {
+        return (
+            item.title === title
+            && item.artist === artist
+            && item.album === album
+        );
+    }));
+
+    await TrackPlayer.add({
+        ...track,
+        index : sameTrackList.length,
+    });
+
 };

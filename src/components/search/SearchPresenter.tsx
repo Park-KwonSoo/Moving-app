@@ -6,8 +6,8 @@ import {
     ScrollView,
     View,
     TouchableOpacity,
-    Text,
     TextInput,
+    Image,
 } from 'react-native';
 
 import styles from './SearchStyled';
@@ -37,7 +37,7 @@ const SearchPresenter = ({ navigation, route, ...props } : SearchProps) => {
                         style = {styles.searchButton}
                         onPress = {props.onSearchButton}
                     >
-                        <Text>버튼임</Text>
+                        <Image style = {styles.searchButtonImg} source = {require('../../../assets/search-glass.png')}/>
                     </TouchableOpacity>
                 </View>
                 <View style = {styles.partitionLine}/>
