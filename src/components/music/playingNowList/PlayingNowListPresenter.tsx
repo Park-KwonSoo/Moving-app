@@ -29,7 +29,7 @@ interface PlayingNowListProps {
     nowTrackInfo : Track | undefined;
 
     nowTrackQueue : Track[];
-    onPlayThisMusic : (index : number) => void;
+    onPlayThisMusic : (item : Track) => void;
 }
 const PlayingNowListPresenter = ({ navigation, route, ...props }: PlayingNowListProps) => {
     return (
@@ -58,10 +58,13 @@ const PlayingNowListPresenter = ({ navigation, route, ...props }: PlayingNowList
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style = {styles.eachListMusicInfo}
-                                    onPress = {() => props.onPlayThisMusic(item.index)}
+                                    onPress = {() => props.onPlayThisMusic(item)}
                                 >
                                     <Text style = {
-                                        props.nowTrackInfo !== undefined  && props.nowTrackInfo.index === item.index ?
+                                        props.nowTrackInfo?.artist === item.artist
+                                        && props.nowTrackInfo?.title === item.title
+                                        && props.nowTrackInfo?.album === item.album
+                                        ?
                                         styles.eachListTitleTextSelect : styles.eachListTitleTextUnselect
                                     }>{item.title}</Text>
                                     <Text style = {styles.eachListArtistText}>{item.artist}</Text>
