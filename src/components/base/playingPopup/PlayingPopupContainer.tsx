@@ -1,24 +1,18 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import PlayingPopupPresenter from './PlayingPopupPresenter';
 
 import { onPlayOrPause, onNext, onPrev } from '../../../util/TrackPlayerUtil';
-import TrackPlayer, {
-    Track,
-} from 'react-native-track-player';
+
+import { MovingDefaultProps } from '../../../config/interface';
+
+import TrackPlayer from 'react-native-track-player';
 
 
-
-interface PlayingPopupProps {
+interface PlayingPopupProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
-
-    nowTrackInfo : Track | undefined;
-    setNowTrackInfo : Dispatch<SetStateAction<Track | undefined>>;
-
-    playingState : boolean;
-    setPlayingState : Dispatch<SetStateAction<boolean>>;
 }
 
 const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupProps) => {
@@ -57,14 +51,14 @@ const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupPro
 
     //상태변화 감지
     useEffect(() => {
-        TrackPlayer.getDuration()
-        .then((duration : number) => {
-            TrackPlayer.getPosition()
-            .then((position : number) => {
-                setPlayingTime((position / duration) * 100);
-            });
-        });
-    }, [props.nowTrackInfo, props.playingState, playingTime]);
+        // TrackPlayer.getDuration()
+        // .then((duration : number) => {
+        //     TrackPlayer.getPosition()
+        //     .then((position : number) => {
+        //         setPlayingTime((position / duration) * 100);
+        //     });
+        // });
+    }, [props, playingTime]);
 
     useEffect(() => {
         return () => {};

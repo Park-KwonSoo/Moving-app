@@ -1,36 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
-import TrackPlayer, {
-    Track,
-    State,
-    RepeatMode,
-} from 'react-native-track-player';
+import { MovingDefaultProps } from '../../config/interface';
+
+import * as MusicUtil from '../../util/TrackPlayerUtil';
 
 import MusicChartPresenter from './MusicChartPresenter';
+import Header from '../base/header';
 import PlayingPopupContainer from '../base/playingPopup';
 
 
-interface MusicChartProps {
+interface MusicChartProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 }
 
 const MusicChartContainer = ({ navigation, route, ...props } : MusicChartProps ) => {
 
-    const [nowTrackInfo, setNowTrackInfo] = useState<Track | undefined>(undefined);
-    const [playingState, setPlayingState] = useState<boolean>(false);
 
     useFocusEffect(
         React.useCallback(() => {
             const fetchData = async () : Promise<void> => {
-                const queue : any[] = await TrackPlayer.getQueue();
-                if (queue.length) {
-                    const currentTrackIndex : number = await TrackPlayer.getCurrentTrack();
-                    setNowTrackInfo(queue[currentTrackIndex]);
-
-                    const currentStatus : State = await TrackPlayer.getState();
-                    setPlayingState(currentStatus === State.Playing ? true : false);
-                }
             };
 
             fetchData();
@@ -40,6 +29,11 @@ const MusicChartContainer = ({ navigation, route, ...props } : MusicChartProps )
 
     return (
         <>
+        <Header
+            navigation = {navigation}
+            route = {route}
+            header = "차트"
+        />
         <MusicChartPresenter
             navigation = {navigation}
             route = {route}
@@ -48,10 +42,7 @@ const MusicChartContainer = ({ navigation, route, ...props } : MusicChartProps )
             navigation = {navigation}
             route = {route}
 
-            nowTrackInfo = {nowTrackInfo}
-            setNowTrackInfo = {setNowTrackInfo}
-            playingState = {playingState}
-            setPlayingState = {setPlayingState}
+            {...props}
         />
         </>
     );

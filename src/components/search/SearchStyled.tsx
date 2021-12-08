@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     searchBarWrapper : {
         backgroundColor : 'transparent',
 
-        marginVertical : '10%',
+        marginBottom : '10%',
         marginHorizontal : '10%',
 
         paddingHorizontal : '1%',
@@ -36,8 +36,6 @@ const styles = StyleSheet.create({
 
     searchBar : {
         width : '70%',
-        borderBottomWidth : 0.5,
-        borderBottomColor : '#303a52',
 
         paddingVertical : '1%',
         paddingHorizontal : '1%',
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width : '99%',
         borderWidth : 0.5,
-        borderColor : '#343434',
+        borderColor : '#303a52',
     },
 
 

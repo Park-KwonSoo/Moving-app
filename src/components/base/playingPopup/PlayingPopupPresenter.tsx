@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { Track } from 'react-native-track-player';
+import { Track, State } from 'react-native-track-player';
 
 import {
     TouchableOpacity,
@@ -17,7 +17,7 @@ interface PlayingPopupProps {
     route : RouteProp<{}>;
 
     nowTrackInfo : Track | undefined;
-    playingState : boolean;
+    playingState : State;
     playingTime : number;
 
     onNextButton : () => void;
@@ -53,7 +53,7 @@ const PlayingPopupPresenter = ({ navigation, route, ...props } : PlayingPopupPro
                         onPress = {props.onPlayAndPauseButton}
                     >
                         <Image style = {styles.musicButtonImg} source = {
-                            props.playingState ?
+                            props.playingState === State.Playing ||  props.playingState === State.Buffering ?
                             require('../../../../assets/pause.png')
                             : require('../../../../assets/play.png')}
                         />

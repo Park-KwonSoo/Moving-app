@@ -1,9 +1,13 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
-import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator, BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import {
+  RootStackParamList,
+  MovingDefaultProps,
+} from '../../config/interface';
 
 import MainScreen from '../../components/main';
 import MusicChartScreen from '../../components/musicChart';
@@ -11,66 +15,89 @@ import SearchScreen from '../../components/search';
 import PlaylistScreen from '../../components/playlist';
 
 
+//모든 스크린의 default props
+interface ScreenProps extends MovingDefaultProps {}
+
 //메인페이지의 네비게이터
-const MainStackNavigator = createStackNavigator();
-const MainStack = () => {
+const MainStackNavigator = createStackNavigator<RootStackParamList>();
+const MainStack = (props : ScreenProps) => {
+
+  const navigation = useNavigation();
+  const route = useRoute<RouteProp<{}>>();
+
   return (
     <MainStackNavigator.Navigator>
       <MainStackNavigator.Screen
         name="MainScreen"
-        component={MainScreen}
         options={{
           headerShown: false,
         }}
-      />
+      >
+        {() => <MainScreen navigation = {navigation} route = {route} {...props}/>}
+      </MainStackNavigator.Screen>
     </MainStackNavigator.Navigator>
   );
 };
 
 //차트 네비게이터
-const MusicChartNavigator = createStackNavigator();
-const MusicChartStack = () => {
+const MusicChartNavigator = createStackNavigator<RootStackParamList>();
+const MusicChartStack = (props : ScreenProps) => {
+
+  const navigation = useNavigation();
+  const route = useRoute<RouteProp<{}>>();
+
   return (
     <MusicChartNavigator.Navigator>
       <MusicChartNavigator.Screen
         name = "MusicChartScreen"
-        component = {MusicChartScreen}
         options = {{
           headerShown : false,
         }}
-      />
+      >
+        {() => <MusicChartScreen navigation={navigation} route={route} {...props}/>}
+      </MusicChartNavigator.Screen>
     </MusicChartNavigator.Navigator>
   );
 };
 
 //검색 네비게이터
-const SearchNavigator = createStackNavigator();
-const SearchStack = () => {
+const SearchNavigator = createStackNavigator<RootStackParamList>();
+const SearchStack = (props : ScreenProps) => {
+
+  const navigation = useNavigation();
+  const route = useRoute<RouteProp<{}>>();
+
   return (
     <SearchNavigator.Navigator>
       <SearchNavigator.Screen
         name = "SearchScreen"
-        component = {SearchScreen}
         options = {{
           headerShown : false,
         }}
-      />
+      >
+        {() => <SearchScreen navigation={navigation} route={route} {...props}/>}
+      </SearchNavigator.Screen>
     </SearchNavigator.Navigator>
   );
 };
 
 //내 보관함 네비게이터
-const PlaylistStackNavigator = createStackNavigator();
-const PlaylistStack = () => {
+const PlaylistStackNavigator = createStackNavigator<RootStackParamList>();
+const PlaylistStack = (props : ScreenProps) => {
+
+  const navigation = useNavigation();
+  const route = useRoute<RouteProp<{}>>();
+
   return (
     <PlaylistStackNavigator.Navigator>
       <PlaylistStackNavigator.Screen
         name="PlaylistScreen"
-        component={PlaylistScreen}
         options={{
           headerShown: false,
         }}
-      />
+      >
+        {() => <PlaylistScreen navigation={navigation} route={route} {...props}/>}
+      </PlaylistStackNavigator.Screen>
     </PlaylistStackNavigator.Navigator>
   );
 };
@@ -78,10 +105,7 @@ const PlaylistStack = () => {
 
 
 //탭 네비게이터 Props : 탭 버튼을 클릭하는 Props
-interface TabProps {
-  navigation : NavigationProp<{}>;
-  route : RouteProp<{}>;
-}
+interface TabProps extends MovingDefaultProps {}
 
 //탭 네비게이터 아이콘 Props : 탭 네비게이터 아이콘
 interface TabBarIconProps {
@@ -91,134 +115,114 @@ interface TabBarIconProps {
 }
 
 const Tab = createBottomTabNavigator();
-export default ({ navigation, route, ...props } : TabProps) => {
+export default ({...props} : TabProps) => {
 
-    useFocusEffect(
-        React.useCallback(() => {
-            const fetchData = async() => {
-              navigation.navigate(route.name);
-            };
-            fetchData();
-        }, [navigation, route.name])
-    );
+  useFocusEffect(
+      React.useCallback(() => {
+          const fetchData = async() => {
+            // navigation.navigate(route.name);
+          };
+          fetchData();
+      }, [])
+  );
 
-    return (
-      <Tab.Navigator>
+  return (
+    <Tab.Navigator>
 
-        <Tab.Screen
-          name = "Main"
-          component = {MainStack}
-          options = {{
-            headerShown : false,
-            tabBarLabel : '홈',
-            tabBarShowLabel : true,
-            tabBarIcon : ({ focused } : TabBarIconProps) => {
-              return (
-                focused ?
-                <Image source = {require('../../../assets/home-focused.png')}
-                  style = {{
-                    height : '90%',
-                    aspectRatio : 1,
-                  }}
-                />
-                :
-                <Image source = {require('../../../assets/home-unfocused.png')}
-                  style = {{
-                    height : '90%',
-                    aspectRatio : 1,
-                  }}
-                />
-              );
-            },
-          }}
-        />
+      <Tab.Screen
+        name = "Main"
+        options = {{
+          headerShown : false,
+          tabBarLabel : '홈',
+          tabBarShowLabel : true,
+          tabBarIcon : ({ focused } : TabBarIconProps) => {
+            return (
+              focused ?
+              <Image source = {require('../../../assets/home-focused.png')}
+                style = {tabStyle.buttonSmall}
+              />
+              :
+              <Image source = {require('../../../assets/home-unfocused.png')}
+                style = {tabStyle.buttonSmall}
+              />
+            );
+          },
+        }}
+      >
+      {() => <MainStack {...props}/>}
+      </Tab.Screen>
 
-        <Tab.Screen
-          name = "MusicChart"
-          component = {MusicChartStack}
-          options = {{
-            headerShown : false,
-            tabBarLabel : '차트',
-            tabBarShowLabel : true,
-            tabBarIcon : ({ focused } : TabBarIconProps) => {
-              return (
-                focused ?
-                <Image source = {require('../../../assets/music-focused.png')}
-                  style = {{
-                    height : '80%',
-                    aspectRatio : 1,
-                  }}
-                />
-                :
-                <Image source = {require('../../../assets/music-unfocused.png')}
-                  style = {{
-                    height : '80%',
-                    aspectRatio : 1,
-                  }}
-                />
-              );
-            },
-          }}
-        />
+      <Tab.Screen
+        name = "MusicChart"
+        options = {{
+          headerShown : false,
+          tabBarLabel : '차트',
+          tabBarShowLabel : true,
+          tabBarIcon : ({ focused } : TabBarIconProps) => {
+            return (
+              focused ?
+              <Image source = {require('../../../assets/music-focused.png')}
+                style = {tabStyle.buttonLarge}
+              />
+              :
+              <Image source = {require('../../../assets/music-unfocused.png')}
+                style = {tabStyle.buttonLarge}
+              />
+            );
+          },
+        }}
+      >
+      {() => <MusicChartStack {...props}/>}
+      </Tab.Screen>
 
-        <Tab.Screen
-          name = "Search"
-          component = {SearchStack}
-          options = {{
-            headerShown : false,
-            tabBarLabel : '검색',
-            tabBarShowLabel : true,
-            tabBarIcon : ({ focused } : TabBarIconProps) => {
-              return (
-                focused ?
-                <Image source = {require('../../../assets/search-focused.png')}
-                  style = {{
-                    height : '80%',
-                    aspectRatio : 1,
-                  }}
-                />
-                :
-                <Image source = {require('../../../assets/search-unfocused.png')}
-                  style = {{
-                    height : '80%',
-                    aspectRatio : 1,
-                  }}
-                />
-              );
-            },
-          }}
-        />
+      <Tab.Screen
+        name = "Search"
+        options = {{
+          headerShown : false,
+          tabBarLabel : '검색',
+          tabBarShowLabel : true,
+          tabBarIcon : ({ focused } : TabBarIconProps) => {
+            return (
+              focused ?
+              <Image source = {require('../../../assets/search-focused.png')}
+                style = {tabStyle.buttonLarge}
+              />
+              :
+              <Image source = {require('../../../assets/search-unfocused.png')}
+                style = {tabStyle.buttonLarge}
+              />
+            );
+          },
+        }}
+      >
+      {() => <SearchStack {...props}/>}
+      </Tab.Screen>
 
-        <Tab.Screen
-          name = "Playlist"
-          component = {PlaylistStack}
-          options = {{
-            headerShown : false,
-            tabBarLabel : '보관함',
-            tabBarShowLabel : true,
-            tabBarIcon : ({ focused } : TabBarIconProps) => {
-              return (
-                focused ?
-                <Image source = {require('../../../assets/my-focused.png')}
-                  style = {{
-                    height : '90%',
-                    aspectRatio : 1,
-                  }}
-                />
-                :
-                <Image source = {require('../../../assets/my-unfocused.png')}
-                  style = {{
-                    height : '90%',
-                    aspectRatio : 1,
-                  }}
-                />
-              );
-            },
-          }}
-        />
+      <Tab.Screen
+        name = "Playlist"
+        options = {{
+          headerShown : false,
+          tabBarLabel : '보관함',
+          tabBarShowLabel : true,
+          tabBarIcon : ({ focused } : TabBarIconProps) => {
+            return (
+              focused ?
+              <Image source = {require('../../../assets/my-focused.png')}
+                style = {tabStyle.buttonSmall}
+              />
+              :
+              <Image source = {require('../../../assets/my-unfocused.png')}
+                style = {tabStyle.buttonSmall}
+              />
+            );
+          },
+        }}
+      >
+        {() => <PlaylistStack {...props}/>}
+      </Tab.Screen>
 
-      </Tab.Navigator>
-    );
+    </Tab.Navigator>
+  );
 };
 
 
@@ -226,6 +230,16 @@ const tabStyle = StyleSheet.create({
   position : {
     alignItems : 'center',
     justifyContent : 'center',
+  },
+
+  buttonSmall : {
+    height : '90%',
+    aspectRatio : 1,
+  },
+
+  buttonLarge : {
+    height : '80%',
+    aspectRatio : 1,
   },
 
 });

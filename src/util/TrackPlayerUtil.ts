@@ -8,14 +8,14 @@ import TrackPlayer, {
  * 현재 재생중인 음악을 일시 정지하거나, 일시 정지 중인 음악을 다시 재생함
  * @returns 현재 재생중 -> 일시 정지 : false | 일시 정지 -> 현재 재생중 : true
  */
-export const onPlayOrPause = async () : Promise<boolean> => {
+export const onPlayOrPause = async () : Promise<State> => {
     const _playingStatus : State = await TrackPlayer.getState();
     if (_playingStatus === State.Playing || _playingStatus ===  State.Buffering) {
         await TrackPlayer.pause();
-        return false;
+        return State.Paused;
     } else {
         await TrackPlayer.play();
-        return true;
+        return State.Playing;
     }
 };
 
@@ -24,9 +24,9 @@ export const onPlayOrPause = async () : Promise<boolean> => {
  * @param playingState : 버튼 누르기 전 현재 재생 상태
  * @returns : 다음 곡의 정보 반환
  */
-export const onNext = async(playingState : boolean) : Promise<Track> => {
+export const onNext = async(playingState : State) : Promise<Track> => {
     await TrackPlayer.skipToNext();
-    if (playingState)   { await TrackPlayer.play(); }
+    if (playingState === State.Playing || playingState === State.Buffering)   { await TrackPlayer.play(); }
     else    { await TrackPlayer.pause(); }
 
     return await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());
@@ -37,7 +37,7 @@ export const onNext = async(playingState : boolean) : Promise<Track> => {
  * @param playingState : 버튼 누르기 전 현재 재생 상태
  * @returns : 다음 곡 정보 반환
  */
-export const onPrev = async (playingState : boolean) : Promise<Track> => {
+export const onPrev = async (playingState : State) : Promise<Track> => {
 
     const position : number = await TrackPlayer.getPosition();
 
@@ -52,7 +52,7 @@ export const onPrev = async (playingState : boolean) : Promise<Track> => {
         //만약 첫번째 곡이 아니라면 이전 곡을 재생
         if (isNotFirst) {
             await TrackPlayer.skipToPrevious();
-            if (playingState)   { await TrackPlayer.play(); }
+            if (playingState === State.Playing || playingState === State.Buffering)   { await TrackPlayer.play(); }
             else    { await TrackPlayer.pause(); }
 
             return await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());
@@ -62,7 +62,7 @@ export const onPrev = async (playingState : boolean) : Promise<Track> => {
             const queue : Track[] = await TrackPlayer.getQueue();
             await TrackPlayer.skip(queue.length - 1);
 
-            if (playingState)   { await TrackPlayer.play(); }
+            if (playingState === State.Playing || playingState === State.Buffering)   { await TrackPlayer.play(); }
             else    { await TrackPlayer.pause(); }
 
             return await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());

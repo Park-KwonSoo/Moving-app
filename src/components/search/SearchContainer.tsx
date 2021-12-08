@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
+import { MovingDefaultProps } from '../../config/interface';
 
 import { addTrackToPlayingListToNext, addTrackToPlayingListToLast } from '../../util/TrackPlayerUtil';
 import TrackPlayer, {
@@ -9,18 +10,16 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 
 import SearchPresenter from './SearchPresenter';
+import Header from '../base/header';
 import PlayingPopupContainer from '../base/playingPopup';
 
 
-interface SearchProps {
+interface SearchProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 }
 
 const SearchContainer = ({ navigation, route, ...props } : SearchProps ) => {
-
-    const [nowTrackInfo, setNowTrackInfo] = useState<Track | undefined>(undefined);
-    const [playingState, setPlayingState] = useState<boolean>(false);
 
     const [keyword, setKeyword] = useState<string | undefined>('');
     const [searchResult, setSearchResult] = useState<Track[]>([]);
@@ -28,14 +27,6 @@ const SearchContainer = ({ navigation, route, ...props } : SearchProps ) => {
     useFocusEffect(
         React.useCallback(() => {
             const fetchData = async () : Promise<void> => {
-                const queue : any[] = await TrackPlayer.getQueue();
-                if (queue.length) {
-                    const currentTrackIndex : number = await TrackPlayer.getCurrentTrack();
-                    setNowTrackInfo(queue[currentTrackIndex]);
-
-                    const currentStatus : State = await TrackPlayer.getState();
-                    setPlayingState(currentStatus === State.Playing ? true : false);
-                }
             };
 
             fetchData();
@@ -63,6 +54,11 @@ const SearchContainer = ({ navigation, route, ...props } : SearchProps ) => {
 
     return (
         <>
+        <Header
+            navigation = {navigation}
+            route = {route}
+            header = "검색"
+        />
         <SearchPresenter
             navigation = {navigation}
             route = {route}
@@ -75,10 +71,7 @@ const SearchContainer = ({ navigation, route, ...props } : SearchProps ) => {
             navigation = {navigation}
             route = {route}
 
-            nowTrackInfo = {nowTrackInfo}
-            setNowTrackInfo = {setNowTrackInfo}
-            playingState = {playingState}
-            setPlayingState = {setPlayingState}
+            {...props}
         />
         </>
     );

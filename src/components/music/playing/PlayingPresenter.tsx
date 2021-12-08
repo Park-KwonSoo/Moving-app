@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { Track } from 'react-native-track-player';
+import { RootStackParamList } from '../../../config/interface';
 
 import {
     SafeAreaView,
@@ -12,6 +13,7 @@ import {
 
 import {
     GestureDetector,
+    ManualGesture,
 } from 'react-native-gesture-handler';
 
 import styles from './PlayingStyled';
@@ -19,13 +21,11 @@ import styles from './PlayingStyled';
 
 interface PlayingProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{
-        params : {
-            name : string
-        }
-    }, 'params'>;
+    route : RouteProp<RootStackParamList, 'MusicNavigator'>;
 
     nowTrackInfo : Track | undefined;
+
+    onGestureVolumeControl : ManualGesture;
 }
 const PlayingPresenter = ({ navigation, route, ...props } : PlayingProps) => {
     return (
@@ -33,9 +33,11 @@ const PlayingPresenter = ({ navigation, route, ...props } : PlayingProps) => {
             <SafeAreaView style = {styles.container}>
                 <View style = {styles.playingWrapper}>
                     <View style = {styles.musicInfoWrapper}>
-                        <View style = {styles.musicAlbumCoverWrapper}>
+                        <GestureDetector gesture = {props.onGestureVolumeControl}>
+                        <TouchableOpacity style = {styles.musicAlbumCoverWrapper}>
                             <Image style = {styles.musicAlbumCoverImg} source = {require('../../../../assets/play.png')}/>
-                        </View>
+                        </TouchableOpacity>
+                        </GestureDetector>
                         <View style = {styles.musicTitleWrapper}>
                             <TouchableOpacity>
                                 <Text style = {styles.musicTitleText}>{props.nowTrackInfo?.title}</Text>

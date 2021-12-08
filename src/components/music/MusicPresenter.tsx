@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { RepeatMode } from 'react-native-track-player';
+import { RepeatMode, State } from 'react-native-track-player';
+import { RootStackParamList } from '../../config/interface';
 
 import {
     SafeAreaView,
@@ -15,18 +16,14 @@ import styles from './MusicStyled';
 
 interface MusicProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{
-        params : {
-            name : string
-        }
-    }, 'params'>;
+    route : RouteProp<RootStackParamList, 'MusicNavigator'>;
 
     nowComponent : string | undefined;
     setNowComponent : Dispatch<SetStateAction<string | undefined>>;
 
     children? : React.ReactChild | React.ReactChild[];
 
-    playingState : boolean;
+    playingState : State;
     playingTime : number;
 
     onPlayAndPauseButton : () => void;
@@ -106,7 +103,7 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
                         style = {{ ...styles.controlButton, width : '12%' }}
                     >
                         <Image style = {styles.controlButtomImg} source = {
-                            props.playingState ?
+                            props.playingState === State.Playing ||  props.playingState === State.Buffering ?
                             require('../../../assets/pause.png') :
                             require('../../../assets/play.png')}
                         />

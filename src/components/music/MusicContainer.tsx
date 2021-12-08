@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useFocusEffect,  NavigationProp, RouteProp } from '@react-navigation/native';
+import { useFocusEffect, NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { MovingDefaultProps, RootStackParamList } from '../../config/interface';
 
 import { onPlayOrPause, onNext, onPrev } from '../../util/TrackPlayerUtil';
+
 import TrackPlayer, {
     Track,
     State,
     RepeatMode,
 } from 'react-native-track-player';
-import { Gesture } from 'react-native-gesture-handler';
+
+import {
+    Gesture,
+    GestureTouchEvent,
+} from 'react-native-gesture-handler';
+
+import SystemSetting from 'react-native-system-setting';
 
 import MusicPresenter from './MusicPresenter';
 import PlayingNowList from './playingNowList';
@@ -15,19 +23,12 @@ import Playing from './playing';
 
 
 
-interface MusicProps {
+interface MusicProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{
-        params : {
-            name : string
-        }
-    }, 'params'>;
+    route : RouteProp<RootStackParamList, 'MusicNavigator'>;
 }
-const MusicContainer = ({ navigation, route } : MusicProps) => {
+const MusicContainer = ({ navigation, route, ...props } : MusicProps) => {
 
-    const [nowTrackInfo, setNowTrackInfo] = useState<Track | undefined>(undefined);
-    const [nowTrackQueue, setNowTrackQueue] = useState<Track[]>([]);
-    const [playingState, setPlayingState] = useState<boolean>(false);
     const [playingTime, setPlayingTime] = useState<number>(0);
     const [nowComponent, setNowComponent] = useState<string | undefined | never>('');
 
@@ -40,17 +41,11 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
             //fetchData 함수
             const fetchData = async () : Promise<void> => {
                 setNowComponent(route.params.name);
-                const nowTrack = await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());
-                setNowTrackInfo(nowTrack);
-                setNowTrackQueue(await TrackPlayer.getQueue());
-
-                //현재 재생중 상태 확인
-                const currentState = await TrackPlayer.getState();
-                setPlayingState(currentState === State.Playing ? true : false);
 
                 //현재 반복 모드로 설정
                 const repeatMode = await TrackPlayer.getRepeatMode();
                 setLoopMode(repeatMode);
+
             };
 
             fetchData();
@@ -60,29 +55,29 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
 
     //다음곡 버튼
     const onNextButton = async() : Promise<void> => {
-        setNowTrackInfo(await onNext(playingState));
+        props.setNowTrackInfo(await onNext(props.playingState));
     };
 
     //이전곡 버튼
     const onPrevButton = async () : Promise<void> => {
-        setNowTrackInfo(await onPrev(playingState));
+        props.setNowTrackInfo(await onPrev(props.playingState));
     };
 
 
     //재생 및 정지 버튼
     const onPlayAndPauseButton = async () : Promise<void> => {
-        setPlayingState(await onPlayOrPause());
+        props.setPlayingState(await onPlayOrPause());
     };
 
     //현재 재생중인 목록에서 선택 곡으로 음악 재생
     const onPlayThisMusic = async (item : Track) : Promise<void> => {
-        const index = nowTrackQueue.indexOf(item);
+        const index = props.nowTrackQueue.indexOf(item);
 
         await TrackPlayer.skip(index);
         await TrackPlayer.play();
-        setPlayingState(true);
+        props.setPlayingState(State.Playing);
 
-        setNowTrackInfo(await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack()));
+        props.setNowTrackInfo(await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack()));
     };
 
     //반복 모드를 설정
@@ -112,17 +107,27 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
         setShuffleMode(!shuffleMode);
     };
 
+    //제스처를 이용하여 볼륨을 컨트롤
+    const onGestureVolumeControl =
+        Gesture.Manual()
+        .enabled(true)
+        .onTouchesMove((data : GestureTouchEvent) => {
+            SystemSetting.setVolume(1);
+            console.log(data.changedTouches[0].y);
+        });
+
+
 
     //상태변화 감지
     useEffect(() => {
-        TrackPlayer.getDuration()
-        .then((duration : number) => {
-            TrackPlayer.getPosition()
-            .then((position : number) => {
-                setPlayingTime((position / duration) * 100);
-            });
-        });
-    }, [playingState, nowTrackInfo, playingTime]);
+        // TrackPlayer.getDuration()
+        // .then((duration : number) => {
+        //     TrackPlayer.getPosition()
+        //     .then((position : number) => {
+        //         setPlayingTime((position / duration) * 100);
+        //     });
+        // });
+    }, [props.playingState, props.nowTrackInfo, playingTime]);
 
 
 
@@ -143,7 +148,7 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
             nowComponent = {nowComponent}
             setNowComponent = {setNowComponent}
 
-            playingState = {playingState}
+            playingState = {props.playingState}
             playingTime = {playingTime}
 
             onPlayAndPauseButton = {onPlayAndPauseButton}
@@ -162,15 +167,17 @@ const MusicContainer = ({ navigation, route } : MusicProps) => {
                     navigation = {navigation}
                     route = {route}
 
-                    nowTrackInfo = {nowTrackInfo}
+                    nowTrackInfo = {props.nowTrackInfo}
+
+                    onGestureVolumeControl = {onGestureVolumeControl}
                 /> :
                 <PlayingNowList
                     navigation = {navigation}
                     route = {route}
 
-                    nowTrackInfo = {nowTrackInfo}
+                    nowTrackInfo = {props.nowTrackInfo}
 
-                    nowTrackQueue = {nowTrackQueue}
+                    nowTrackQueue = {props.nowTrackQueue}
                     onPlayThisMusic = {onPlayThisMusic}
                 />
             }

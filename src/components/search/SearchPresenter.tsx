@@ -32,6 +32,8 @@ const SearchPresenter = ({ navigation, route, ...props } : SearchProps) => {
                         style = {styles.searchBar}
                         value = {props.keyword}
                         onChangeText = {props.onSetKeyword}
+                        placeholder = "제목, 가수, 앨범 등을 입력하세요."
+                        placeholderTextColor = "#a0a0a0"
                     />
                     <TouchableOpacity
                         style = {styles.searchButton}
