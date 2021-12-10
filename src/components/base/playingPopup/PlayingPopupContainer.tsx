@@ -1,37 +1,72 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationProp, RouteProp } from '@react-navigation/native';
+import { NavigationProp, RouteProp, useFocusEffect } from '@react-navigation/native';
+import { RootStackParamList } from '../../../config/interface';
+
+import { onPlayOrPause, onNext, onPrev } from '../../../util/TrackPlayerUtil';
+import TrackPlayer, {
+    Track,
+    State,
+    useProgress,
+    useTrackPlayerEvents,
+    Event as TrackPlayerEvent,
+ } from 'react-native-track-player';
 
 import PlayingPopupPresenter from './PlayingPopupPresenter';
 
-import { onPlayOrPause, onNext, onPrev } from '../../../util/TrackPlayerUtil';
-
-import { MovingDefaultProps } from '../../../config/interface';
-
-import TrackPlayer from 'react-native-track-player';
 
 
-interface PlayingPopupProps extends MovingDefaultProps {
+interface PlayingPopupProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{}>;
+    route : RouteProp<{}> | RouteProp<RootStackParamList, 'PlayListDetailScreen'>;
 }
 
 const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupProps) => {
 
-    const [playingTime, setPlayingTime] = useState<number>(0);
+    const [nowTrackInfo, setNowTrackInfo] = useState<Track | undefined>();
+    const [playingState, setPlayingState] = useState<State>(State.Paused);
+
+    const progress = useProgress(100);
+
+    //트랙 플레이어의 상태가 바뀌었을 때
+    useTrackPlayerEvents([
+        TrackPlayerEvent.PlaybackState,
+        TrackPlayerEvent.PlaybackQueueEnded,
+        TrackPlayerEvent.PlaybackTrackChanged,
+    ], async(event : any) => {
+
+        if (event.type === TrackPlayerEvent.PlaybackState) {
+        }
+
+        if (event.type === TrackPlayerEvent.PlaybackTrackChanged) {
+            setNowTrackInfo(await TrackPlayer.getTrack(event.nextTrack));
+        }
+    });
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchData = async() => {
+                const currentTrack = await TrackPlayer.getCurrentTrack();
+                setNowTrackInfo(currentTrack !== null ? await TrackPlayer.getTrack(currentTrack) : undefined);
+                setPlayingState(await TrackPlayer.getState());
+            };
+            fetchData();
+        }, [])
+    );
+
 
     //다음 곡 재생 버튼
     const onNextButton = async () : Promise<void> => {
-        props.setNowTrackInfo(await onNext(props.playingState));
+        setNowTrackInfo(await onNext(playingState));
     };
 
     //이전 곡 재생 버튼
     const onPrevButton = async () : Promise<void> => {
-        props.setNowTrackInfo(await onPrev(props.playingState));
+        setNowTrackInfo(await onPrev(playingState));
     };
 
     //일시정지 및 재생 버튼
     const onPlayAndPauseButton = async () : Promise<void> => {
-        props.setPlayingState(await onPlayOrPause());
+        setPlayingState(await onPlayOrPause());
     };
 
     //현재 재생중인 곡 상세 정보 이동 버튼
@@ -49,16 +84,6 @@ const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupPro
     };
 
 
-    //상태변화 감지
-    useEffect(() => {
-        // TrackPlayer.getDuration()
-        // .then((duration : number) => {
-        //     TrackPlayer.getPosition()
-        //     .then((position : number) => {
-        //         setPlayingTime((position / duration) * 100);
-        //     });
-        // });
-    }, [props, playingTime]);
 
     useEffect(() => {
         return () => {};
@@ -69,9 +94,9 @@ const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupPro
             navigation = {navigation}
             route = {route}
 
-            nowTrackInfo = {props.nowTrackInfo}
-            playingState = {props.playingState}
-            playingTime = {playingTime}
+            nowTrackInfo = {nowTrackInfo}
+            playingState = {playingState}
+            progress = {progress}
 
             onNextButton = {onNextButton}
             onPrevButton = {onPrevButton}

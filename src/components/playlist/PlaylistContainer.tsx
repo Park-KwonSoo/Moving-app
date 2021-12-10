@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
-import { MovingDefaultProps, Playlist } from '../../config/interface';
+import { Playlist, RootStackParamList } from '../../config/interface';
 
 import * as MusicUtil from '../../util/TrackPlayerUtil';
 
@@ -9,11 +9,10 @@ import Header from '../base/header';
 import PlayingPopupContainer from '../base/playingPopup';
 
 
-interface PlaylistProps extends MovingDefaultProps {
+interface PlaylistProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 }
-
 const PlaylistContainer = ({ navigation, route, ...props } : PlaylistProps ) => {
 
     //현재 로그인한 유저의 플레이리스트 목록을 가져옴
@@ -22,11 +21,33 @@ const PlaylistContainer = ({ navigation, route, ...props } : PlaylistProps ) => 
     useFocusEffect(
         React.useCallback(() => {
             const fetchData = async () : Promise<void> => {
+                setMyPlaylist([
+                    {
+                        playlistId : 1,
+                        playlistName : '가요',
+                        playlistTrackCount : 5,
+                    },
+                    {
+                        playlistId : 2,
+                        playlistName : '팝송',
+                        playlistTrackCount : 7,
+                    },
+                ]);
             };
 
             fetchData();
         }, [])
     );
+
+    const onGoPlaylistDetail = (playListId : number) : void => {
+        navigation.navigate('TabNavigator' as never, {
+            screen : 'PlayListDetail',
+            params : {
+                playlistId : playListId,
+            },
+        } as never);
+    };
+
 
     return (
         <>
@@ -38,12 +59,13 @@ const PlaylistContainer = ({ navigation, route, ...props } : PlaylistProps ) => 
         <PlaylistPresenter
             navigation = {navigation}
             route = {route}
+
+            myPlaylist = {myPlaylist}
+            onGoPlaylistDetail = {onGoPlaylistDetail}
         />
         <PlayingPopupContainer
             navigation = {navigation}
             route = {route}
-
-            {...props}
         />
         </>
     );

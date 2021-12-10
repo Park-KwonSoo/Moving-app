@@ -21,6 +21,8 @@ const styles = StyleSheet.create({
     topButton : {
         display : 'flex',
         flexDirection : 'row',
+        paddingVertical : '1%',
+        paddingHorizontal : '2%',
     },
 
     topButtonImg : {
@@ -63,19 +65,20 @@ const styles = StyleSheet.create({
         display : 'flex',
         flexDirection : 'column',
         justifyContent : 'center',
+        width : '70%',
     },
 
     eachListTitleTextSelect : {
         fontSize : 17,
         fontWeight : '600',
-        marginBottom : '10%',
+        marginBottom : '5%',
         color : '#92579d',
     },
 
     eachListTitleTextUnselect : {
         fontSize : 17,
         fontWeight : '600',
-        marginBottom : '10%',
+        marginBottom : '5%',
         color : '#343434',
     },
 

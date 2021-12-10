@@ -21,9 +21,11 @@ interface MusicChartProps {
 const MusicChartPresenter = ({ navigation, route, ...props } : MusicChartProps) => {
     return (
         <SafeAreaView style = {styles.container}>
+        <View style = {styles.wrapper}>
             <ScrollView>
                 <Text>차트 컨테이너</Text>
             </ScrollView>
+        </View>
         </SafeAreaView>
     );
 };

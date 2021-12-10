@@ -21,9 +21,11 @@ interface MainProps {
 const MainPresenter = ({ navigation, route, ...props } : MainProps) => {
     return (
         <SafeAreaView style = {styles.container}>
+        <View style = {styles.wrapper}>
             <ScrollView>
                 <Text>메인 컨테이너</Text>
             </ScrollView>
+        </View>
         </SafeAreaView>
     );
 };

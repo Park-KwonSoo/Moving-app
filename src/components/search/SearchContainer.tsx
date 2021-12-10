@@ -14,7 +14,7 @@ import Header from '../base/header';
 import PlayingPopupContainer from '../base/playingPopup';
 
 
-interface SearchProps extends MovingDefaultProps {
+interface SearchProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 }
@@ -70,8 +70,6 @@ const SearchContainer = ({ navigation, route, ...props } : SearchProps ) => {
         <PlayingPopupContainer
             navigation = {navigation}
             route = {route}
-
-            {...props}
         />
         </>
     );

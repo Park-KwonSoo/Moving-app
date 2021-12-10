@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { RepeatMode, State } from 'react-native-track-player';
+import { RepeatMode, State, ProgressState } from 'react-native-track-player';
 import { RootStackParamList } from '../../config/interface';
 
 import {
@@ -24,7 +24,7 @@ interface MusicProps {
     children? : React.ReactChild | React.ReactChild[];
 
     playingState : State;
-    playingTime : number;
+    progress : ProgressState;
 
     onPlayAndPauseButton : () => void;
     onPrevButton : () => void;
@@ -36,7 +36,7 @@ interface MusicProps {
     shuffleMode : boolean;
     onShuffleChange : () => void;
 }
-const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) => {
+const MusicPresenter = ({ navigation, route, children, ...props } : MusicProps) => {
     return (
         <SafeAreaView style = {styles.container}>
             <View style = {styles.iosSlideBar}/>
@@ -74,7 +74,7 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
             </View>
             {children}
             <View style = {styles.footerWrapper}>
-                <View style = {{...styles.musicBuffer, width : `${props.playingTime}%`}}/>
+                <View style = {{...styles.musicBuffer, width : `${props.progress.position > 0 ? (props.progress.position / props.progress.duration) * 100 : 0}%`}}/>
                 <View style = {styles.controllerWrapper}>
                     <TouchableOpacity
                         onPress = {props.onLoopChange}
@@ -85,7 +85,7 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
                             require('../../../assets/loop-unselect.png') :
 
                             props.loopMode === RepeatMode.Track ?
-                            require('../../../assets/loop-all.png') :
+                            require('../../../assets/loop-one.png') :
 
                             require('../../../assets/loop-all.png')
                         }/>
@@ -100,7 +100,7 @@ const MusicPresenter = ({ navigation, route, children, ...props } :MusicProps) =
 
                     <TouchableOpacity
                         onPress = {props.onPlayAndPauseButton}
-                        style = {{ ...styles.controlButton, width : '12%' }}
+                        style = {{ ...styles.controlButton, width : '17%' }}
                     >
                         <Image style = {styles.controlButtomImg} source = {
                             props.playingState === State.Playing ||  props.playingState === State.Buffering ?

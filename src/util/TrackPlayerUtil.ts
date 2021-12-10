@@ -1,6 +1,7 @@
 import TrackPlayer, {
     Track,
     State,
+    PitchAlgorithm,
 } from 'react-native-track-player';
 
 
@@ -25,11 +26,25 @@ export const onPlayOrPause = async () : Promise<State> => {
  * @returns : 다음 곡의 정보 반환
  */
 export const onNext = async(playingState : State) : Promise<Track> => {
-    await TrackPlayer.skipToNext();
-    if (playingState === State.Playing || playingState === State.Buffering)   { await TrackPlayer.play(); }
-    else    { await TrackPlayer.pause(); }
 
-    return await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());
+    //마지막 곡이라면 다음 곡을 재생함
+    const isLast : boolean = await TrackPlayer.getCurrentTrack() === (await TrackPlayer.getQueue()).length - 1;
+    if (!isLast) {
+        await TrackPlayer.skipToNext();
+        if (playingState === State.Playing || playingState === State.Buffering)   { await TrackPlayer.play(); }
+        else    { await TrackPlayer.pause(); }
+
+        return await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());
+    } else {
+        //마지막곡이면 첫번쨰 곡 재생
+        await TrackPlayer.skip(0);
+        if (playingState === State.Playing || playingState === State.Buffering)   { await TrackPlayer.play(); }
+        else    { await TrackPlayer.pause(); }
+
+        return await TrackPlayer.getTrack(await TrackPlayer.getCurrentTrack());
+    }
+
+
 };
 
 /**
@@ -94,11 +109,13 @@ export const addTrackToPlayingListToNext = async(track : Track) : Promise<void> 
         await TrackPlayer.add({
             ...track,
             index : sameTrackList.length,
+            pitchAlgorithm : PitchAlgorithm.Music,
         });
     } else {
         await TrackPlayer.add({
             ...track,
             index : sameTrackList.length,
+            pitchAlgorithm : PitchAlgorithm.Music,
         }, currentTrackIndex + 1);
     }
 
@@ -124,6 +141,8 @@ export const addTrackToPlayingListToLast = async(track : Track) : Promise<void> 
     await TrackPlayer.add({
         ...track,
         index : sameTrackList.length,
+        pitchAlgorithm : PitchAlgorithm.Music,
     });
+
 
 };

@@ -64,8 +64,11 @@ const styles = StyleSheet.create({
 
     controlButton : {
         height : '50%',
-        width : '8%',
+        width : '14%',
         aspectRatio : 1,
+
+        padding : '3%',
+
     },
 
     controlButtomImg : {
@@ -75,8 +78,10 @@ const styles = StyleSheet.create({
 
     modeButton : {
         height : '50%',
-        width : '5%',
+        width : '9%',
         aspectRatio : 1,
+
+        padding : '2%',
     },
 
     modeButtonImg : {

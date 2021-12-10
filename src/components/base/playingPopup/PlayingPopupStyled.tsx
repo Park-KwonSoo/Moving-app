@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         height : '10%',
         width : '100%',
         zIndex : 100,
-        backgroundColor : '#fff',
+        backgroundColor : 'transparent',
         display : 'flex',
         flexDirection : 'column',
     },

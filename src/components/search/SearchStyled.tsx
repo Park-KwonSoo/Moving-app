@@ -7,8 +7,14 @@ const styles = StyleSheet.create({
         flexDirection : 'column',
         alignItems : 'center',
         justifyContent : 'center',
-        height : '100%',
         width : '100%',
+        height : '85%',
+    },
+
+    wrapper : {
+        width : '100%',
+        height : '85%',
+        marginBottom : '15%',
     },
 
     frame : {

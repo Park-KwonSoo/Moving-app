@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import {
@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 
 import styles from './HeaderStyled';
+import { RootStackParamList } from '../../../config/interface';
 
 interface HeaderProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{}>;
+    route : RouteProp<{}> | RouteProp<RootStackParamList, 'PlayListDetailScreen'>;
     header : string;
 }
 const Header = ({ navigation, route, ...props } : HeaderProps) => {

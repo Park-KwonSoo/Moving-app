@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { Track, State } from 'react-native-track-player';
+import { RootStackParamList } from '../../../config/interface';
+import { Track, State, ProgressState } from 'react-native-track-player';
 
 import {
     TouchableOpacity,
@@ -14,11 +15,11 @@ import styles from './PlayingPopupStyled';
 
 interface PlayingPopupProps {
     navigation : NavigationProp<{}>;
-    route : RouteProp<{}>;
+    route : RouteProp<{}> | RouteProp<RootStackParamList, 'PlayListDetailScreen'>;
 
     nowTrackInfo : Track | undefined;
     playingState : State;
-    playingTime : number;
+    progress : ProgressState;
 
     onNextButton : () => void;
     onPrevButton : () => void;
@@ -72,7 +73,7 @@ const PlayingPopupPresenter = ({ navigation, route, ...props } : PlayingPopupPro
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style = {{...styles.musicPlayingUnderbar, width : `${props.playingTime}%`}} />
+            <View style = {{...styles.musicPlayingUnderbar, width : `${props.progress.position > 0 ? (props.progress.position / props.progress.duration) * 100 : 0}%`}} />
         </View> : null
     );
 };

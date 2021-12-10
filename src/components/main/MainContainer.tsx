@@ -9,7 +9,7 @@ import Header from '../base/header';
 import PlayingPopupContainer from '../base/playingPopup';
 
 
-interface MainProps extends MovingDefaultProps {
+interface MainProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 }
@@ -38,7 +38,6 @@ const MainContainer = ({ navigation, route, ...props } : MainProps ) => {
         <PlayingPopupContainer
             navigation = {navigation}
             route = {route}
-            {...props}
         />
         </>
     );

@@ -26,6 +26,7 @@ interface SearchProps {
 const SearchPresenter = ({ navigation, route, ...props } : SearchProps) => {
     return (
         <SafeAreaView style = {styles.container}>
+        <View style = {styles.wrapper}>
             <ScrollView style = {styles.frame}>
                 <View style = {styles.searchBarWrapper}>
                     <TextInput
@@ -44,6 +45,7 @@ const SearchPresenter = ({ navigation, route, ...props } : SearchProps) => {
                 </View>
                 <View style = {styles.partitionLine}/>
             </ScrollView>
+        </View>
         </SafeAreaView>
     );
 };

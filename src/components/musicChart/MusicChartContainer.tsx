@@ -9,7 +9,7 @@ import Header from '../base/header';
 import PlayingPopupContainer from '../base/playingPopup';
 
 
-interface MusicChartProps extends MovingDefaultProps {
+interface MusicChartProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}>;
 }
@@ -41,8 +41,6 @@ const MusicChartContainer = ({ navigation, route, ...props } : MusicChartProps )
          <PlayingPopupContainer
             navigation = {navigation}
             route = {route}
-
-            {...props}
         />
         </>
     );
