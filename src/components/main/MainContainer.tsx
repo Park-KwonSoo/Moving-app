@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
-import { MovingDefaultProps } from '../../config/interface';
 
 import * as MusicUtil from '../../util/TrackPlayerUtil';
 

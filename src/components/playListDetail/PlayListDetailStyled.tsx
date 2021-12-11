@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
     playListHeader : {
         width : '90%',
         height : '30%',
-        borderWidth : 1,
-        borderColor : 'transparent',
         borderRadius : 7,
         backgroundColor : '#ededed',
         display : 'flex',

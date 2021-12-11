@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { MovingDefaultProps, RootStackParamList } from '../../config/interface';
+import { RootStackParamList } from '../../config/interface';
 
 import { onPlayOrPause, onNext, onPrev } from '../../util/TrackPlayerUtil';
 import useAsyncStorage from '../../util/useAsyncStorage';

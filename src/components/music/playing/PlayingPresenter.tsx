@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { Track } from 'react-native-track-player';
-import { RootStackParamList } from '../../../config/interface';
+import { RootStackParamList , MovingDefaultProps} from '../../../config/interface';
 
 import {
     SafeAreaView,
@@ -19,11 +19,9 @@ import {
 import styles from './PlayingStyled';
 
 
-interface PlayingProps {
+interface PlayingProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<RootStackParamList, 'MusicNavigator'>;
-
-    nowTrackInfo : Track | undefined;
 
     onGestureVolumeControl : ManualGesture;
 }

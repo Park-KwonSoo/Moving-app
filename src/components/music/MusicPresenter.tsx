@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RepeatMode, State, ProgressState } from 'react-native-track-player';
-import { RootStackParamList } from '../../config/interface';
+import { RootStackParamList, MovingDefaultProps } from '../../config/interface';
 
 import {
     SafeAreaView,
@@ -14,7 +14,7 @@ import {
 import styles from './MusicStyled';
 
 
-interface MusicProps {
+interface MusicProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<RootStackParamList, 'MusicNavigator'>;
 
@@ -23,7 +23,6 @@ interface MusicProps {
 
     children? : React.ReactChild | React.ReactChild[];
 
-    playingState : State;
     progress : ProgressState;
 
     onPlayAndPauseButton : () => void;

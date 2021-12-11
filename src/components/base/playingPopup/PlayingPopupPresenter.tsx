@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../config/interface';
+import { RootStackParamList, MovingDefaultProps } from '../../../config/interface';
 import { Track, State, ProgressState } from 'react-native-track-player';
 
 import {
@@ -13,12 +13,10 @@ import {
 import styles from './PlayingPopupStyled';
 
 
-interface PlayingPopupProps {
+interface PlayingPopupProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<{}> | RouteProp<RootStackParamList, 'PlayListDetailScreen'>;
 
-    nowTrackInfo : Track | undefined;
-    playingState : State;
     progress : ProgressState;
 
     onNextButton : () => void;

@@ -30,19 +30,19 @@ export type RootStackParamList = {
 //moving 어플리케이션의 기본 프랍 형태
 export interface MovingDefaultProps {
 
-    nowTrackInfo : Track | undefined;
-    setNowTrackInfo : Dispatch<SetStateAction<Track | undefined>>;
+    nowTrackInfo? : Track | undefined;
+    setNowTrackInfo? : Dispatch<SetStateAction<Track | undefined>>;
 
-    nowTrackQueue : Track[];
-    setNowTrackQueue : Dispatch<SetStateAction<Track[]>>;
+    nowTrackQueue? : Track[];
+    setNowTrackQueue? : Dispatch<SetStateAction<Track[]>>;
 
-    playingState : State;
+    playingState? : State;
 
-    loopMode : RepeatMode;
-    setLoopMode : Dispatch<SetStateAction<RepeatMode>>;
+    loopMode? : RepeatMode;
+    setLoopMode? : Dispatch<SetStateAction<RepeatMode>>;
 
-    shuffleMode : boolean;
-    setShuffleMode : Dispatch<SetStateAction<boolean>>;
+    shuffleMode? : boolean;
+    setShuffleMode? : Dispatch<SetStateAction<boolean>>;
 }
 
 //플레이리스트의 정보를 담고 있는 인터페이스

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../../config/interface';
+import { RootStackParamList, MovingDefaultProps } from '../../../config/interface';
 import { Track } from 'react-native-track-player';
 
 import {
@@ -19,13 +19,10 @@ import {
 import styles from './PlayingNowListStyled';
 
 
-interface PlayingNowListProps {
+interface PlayingNowListProps extends MovingDefaultProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<RootStackParamList, 'MusicNavigator'>;
 
-    nowTrackInfo : Track | undefined;
-
-    nowTrackQueue : Track[];
     onPlayThisMusic : (item : Track) => void;
 }
 const PlayingNowListPresenter = ({ navigation, route, ...props }: PlayingNowListProps) => {

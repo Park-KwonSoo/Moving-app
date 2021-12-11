@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useFocusEffect, NavigationProp, RouteProp, useRoute } from '@react-navigation/native';
+import React, { useState, useEffect, TouchEvent } from 'react';
+import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList, PlayListDetail } from '../../config/interface';
 
 import * as MusicUtil from '../../util/TrackPlayerUtil';
+import useGestureInteraction from '../../util/useGestureInteraction';
+
 import {
     PitchAlgorithm,
 } from 'react-native-track-player';
@@ -19,6 +21,7 @@ interface PlayListDetailProps {
 const PlayListDetailContainer = ({ navigation, route, ...props } : PlayListDetailProps) => {
 
     const [playListDetail, setPlayListDetail] = useState<PlayListDetail | undefined>();
+    const { modalOn, modalDirection, modalLocation, Slide } = useGestureInteraction(false);
 
     useFocusEffect(
         React.useCallback(() => {
@@ -76,6 +79,7 @@ const PlayListDetailContainer = ({ navigation, route, ...props } : PlayListDetai
         }, [route])
     );
 
+
     useEffect(() => {
 
     }, []);
@@ -92,6 +96,12 @@ const PlayListDetailContainer = ({ navigation, route, ...props } : PlayListDetai
             route = {route}
 
             playListDetail = {playListDetail}
+
+            Slide = {Slide}
+
+            modalOn = {modalOn}
+            modalDirection = {modalDirection}
+            modalLocation = {modalLocation}
         />
         <PlayingPopupContainer
             navigation = {navigation}

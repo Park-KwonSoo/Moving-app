@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         top : '90%',
         height : '10%',
         width : '100%',
-        zIndex : 100,
+        zIndex : 50,
         backgroundColor : 'transparent',
         display : 'flex',
         flexDirection : 'column',

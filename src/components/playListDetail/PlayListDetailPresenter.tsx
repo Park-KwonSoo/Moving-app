@@ -8,10 +8,17 @@ import {
     Image,
     FlatList,
     TouchableOpacity,
+    Animated,
 } from 'react-native';
+import {
+    GestureDetector,
+    Gesture,
+    PanGesture,
+ } from 'react-native-gesture-handler';
 
 import { RootStackParamList, PlayListDetail } from '../../config/interface';
 
+import PlayingModeModal from '../base/playingModeModal';
 import styles from './PlayListDetailStyled';
 
 
@@ -20,6 +27,15 @@ interface PlayListDetailProps {
     route : RouteProp<RootStackParamList, 'PlayListDetailScreen'>;
 
     playListDetail : PlayListDetail | undefined;
+
+    Slide : () => PanGesture;
+
+    modalOn : boolean;
+    modalDirection : string;
+    modalLocation : {
+        x : number;
+        y : number;
+    };
 }
 const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetailProps) => {
     return (
@@ -40,10 +56,8 @@ const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetail
                 data = {props.playListDetail.playlistTrackList}
                 renderItem = {({ item }) => {
                     return (
-                        <TouchableOpacity
-                            style = {styles.eachTrackWrapper}
-                            onLongPress= {() => console.log('press')}
-                        >
+                        <GestureDetector gesture = {Gesture.Exclusive(props.Slide())}>
+                        <View style = {styles.eachTrackWrapper}>
                             <View style = {styles.eachTrackImageWrapper}>
                                 <Image style = {styles.eachTrackImage} source = {require('../../../assets/pause.png')}/>
                             </View>
@@ -51,11 +65,19 @@ const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetail
                                 <Text style = {styles.eachTrackInfoTitle}>{item.title}</Text>
                                 <Text style = {styles.eachTrackInfoArtist}>{item.artist}</Text>
                             </View>
-                        </TouchableOpacity>
+                        </View>
+                        </GestureDetector>
                     );
                 }}
                 ItemSeparatorComponent = {() => <View style = {styles.eachTrackSeperator}/>}
             />
+            {
+                props.modalOn ?
+                <PlayingModeModal
+                    modalDirection = {props.modalDirection}
+                    modalLocation = {props.modalLocation}
+                /> : null
+            }
         </View>
         </SafeAreaView>
 
