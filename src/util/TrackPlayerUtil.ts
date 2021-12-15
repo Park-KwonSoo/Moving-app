@@ -146,3 +146,33 @@ export const addTrackToPlayingListToLast = async(track : Track) : Promise<void> 
 
 
 };
+
+/**
+ * 현재 재생중인 목록에 새로운 플레이리스트를 모두 추가한다.
+ * @param trackList
+ */
+export const addTrackListToPlayingList = async(trackList : Track[]) : Promise<void> => {
+    await TrackPlayer.add(trackList);
+};
+
+/**
+ * 현재 재생중인 목록을 한 곡으로만 바꾼다.
+ * @param track
+ */
+export const changePlayListByOneTrack = async(track : Track) : Promise<void> => {
+    //현재 음악을 멈추고, 초기화를 진행함
+    await TrackPlayer.reset();
+
+    await TrackPlayer.add(track);
+};
+
+/**
+ * 현재 플레이리스트를 모두 교체함
+ * @param trackList : 새로운 트랙 리스트
+ */
+export const changePlayListByPlayList = async(trackList : Track[]) : Promise<void> => {
+    //현재 음악을 멈추고, 초기화를 진행함
+    await TrackPlayer.reset();
+
+    await TrackPlayer.add(trackList);
+};
