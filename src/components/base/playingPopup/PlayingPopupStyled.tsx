@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     },
 
     musicInfoTitle : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 16,
         marginBottom : '2%',
         fontWeight: '500',
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     },
 
     musicInfoArtist : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 13,
         color : '#343434',
     },

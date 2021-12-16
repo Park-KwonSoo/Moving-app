@@ -46,6 +46,7 @@ export default () => {
         options = {{
           headerShown : false,
           tabBarLabel : '홈',
+          tabBarLabelStyle : {...tabStyle.labelStyle},
           tabBarShowLabel : true,
           tabBarIcon : ({ focused } : TabBarIconProps) => {
             return (
@@ -68,6 +69,7 @@ export default () => {
         options = {{
           headerShown : false,
           tabBarLabel : '차트',
+          tabBarLabelStyle : {...tabStyle.labelStyle},
           tabBarShowLabel : true,
           tabBarIcon : ({ focused } : TabBarIconProps) => {
             return (
@@ -90,6 +92,7 @@ export default () => {
         options = {{
           headerShown : false,
           tabBarLabel : '검색',
+          tabBarLabelStyle : {...tabStyle.labelStyle},
           tabBarShowLabel : true,
           tabBarIcon : ({ focused } : TabBarIconProps) => {
             return (
@@ -112,6 +115,7 @@ export default () => {
         options = {{
           headerShown : false,
           tabBarLabel : '보관함',
+          tabBarLabelStyle : {...tabStyle.labelStyle},
           tabBarShowLabel : true,
           tabBarIcon : ({ focused } : TabBarIconProps) => {
             return (
@@ -152,6 +156,10 @@ const tabStyle = StyleSheet.create({
   buttonLarge : {
     height : '80%',
     aspectRatio : 1,
+  },
+
+  labelStyle : {
+    fontFamily : 'Cafe24SsurroundAir',
   },
 
 });

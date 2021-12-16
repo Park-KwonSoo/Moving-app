@@ -59,12 +59,15 @@ const styles = StyleSheet.create({
     },
 
     playListCreatedDateInfo : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 13,
         fontWeight : '400',
         color : '#a0a0a0',
     },
 
     playListCreatedDate : {
+        fontFamily : 'Cafe24SsurroundAir',
+
         fontSize : 15,
         fontWeight : '500',
         color : '#343434',
@@ -116,12 +119,16 @@ const styles = StyleSheet.create({
     },
 
     eachTrackInfoTitle : {
+        fontFamily : 'Cafe24SsurroundAir',
+
         fontSize : 18,
         fontWeight : '500',
         marginBottom : '5%',
     },
 
     eachTrackInfoArtist : {
+        fontFamily : 'Cafe24SsurroundAir',
+
         fontSize : 13,
         fontWeight : '400',
     },

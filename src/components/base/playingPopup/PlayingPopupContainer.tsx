@@ -35,10 +35,15 @@ const PlayingPopupContainer = ({ navigation, route, ...props } : PlayingPopupPro
     ], async(event : any) => {
 
         if (event.type === TrackPlayerEvent.PlaybackState) {
+            if (event.state !== 'buffering' || event.state !== 'loading') {
+                setPlayingState(event.state);
+            }
         }
 
         if (event.type === TrackPlayerEvent.PlaybackTrackChanged) {
-            setNowTrackInfo(await TrackPlayer.getTrack(event.nextTrack));
+            if (event.nextTrack !== undefined) {
+                setNowTrackInfo(await TrackPlayer.getTrack(event.nextTrack));
+            }
         }
     });
 

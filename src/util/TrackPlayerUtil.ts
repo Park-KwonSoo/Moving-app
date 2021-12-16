@@ -164,6 +164,7 @@ export const changePlayListByOneTrack = async(track : Track) : Promise<void> => 
     await TrackPlayer.reset();
 
     await TrackPlayer.add(track);
+    await TrackPlayer.play();
 };
 
 /**

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useFocusEffect, NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../config/interface';
 
 import { onPlayOrPause, onNext, onPrev } from '../../util/TrackPlayerUtil';

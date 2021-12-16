@@ -42,12 +42,6 @@ const SearchContainer = ({ navigation, route, ...props } : SearchProps ) => {
     const onSearchButton = async () : Promise<void> => {
         console.log(keyword);
         console.log(searchResult);
-        await addTrackToPlayingListToNext({
-            url : require('../../../assets/music/1.m4a'),
-            title : '세번재곡',
-            artist : '세번재아디스트',
-            contentType : 'audio/m4a',
-        });
     };
 
 

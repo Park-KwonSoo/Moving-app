@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 import {
@@ -7,18 +7,20 @@ import {
     Text,
     Image,
     FlatList,
-    TouchableOpacity,
-    Animated,
 } from 'react-native';
+
 import {
     GestureDetector,
-    Gesture,
     PanGesture,
- } from 'react-native-gesture-handler';
+} from 'react-native-gesture-handler';
 
-import { RootStackParamList, PlayListDetail } from '../../config/interface';
+import {
+    Track,
+} from 'react-native-track-player';
 
-import PlayingModeModal from '../base/playingModeModal';
+import { RootStackParamList, PlayListDetail, PlayingModeModal, TouchFocusLocation } from '../../config/interface';
+
+import PlayingModeModalContainer from '../base/playingModeModal';
 import styles from './PlayListDetailStyled';
 
 
@@ -26,20 +28,40 @@ interface PlayListDetailProps {
     navigation : NavigationProp<{}>;
     route : RouteProp<RootStackParamList, 'PlayListDetailScreen'>;
 
+    height : number;
+    width : number;
+
     playListDetail : PlayListDetail | undefined;
+    selectTrack : Track | undefined;
 
-    Slide : () => PanGesture;
+    slideToModalOn : (track : Track) => PanGesture;
 
-    modalOn : boolean;
-    modalDirection : string;
-    modalLocation : {
-        x : number;
-        y : number;
-    };
+    modal : PlayingModeModal;
+    touchFocusLocation : TouchFocusLocation;
+    relaseButtonLocationY : number;
+    setReleaseButtonLocationY : Dispatch<SetStateAction<number>>;
 }
 const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetailProps) => {
     return (
         props.playListDetail ?
+        <>
+        {
+            props.modal.modalOn ?
+            <PlayingModeModalContainer
+                height = {props.height}
+                width = {props.width}
+
+                modal = {props.modal}
+                touchFocusLocation = {props.touchFocusLocation}
+
+                playListDetail = {props.playListDetail}
+                selectTrack = {props.selectTrack}
+
+                relaseButtonLocationY = {props.relaseButtonLocationY}
+                setReleaseButtonLocationY = {props.setReleaseButtonLocationY}
+            />
+            : null
+        }
         <SafeAreaView style = {styles.container}>
         <View style = {styles.wrapper}>
             <View style = {styles.playListHeader}>
@@ -54,9 +76,10 @@ const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetail
             <FlatList
                 style = {styles.playListBody}
                 data = {props.playListDetail.playlistTrackList}
+                scrollEnabled = {!props.modal.modalOn}
                 renderItem = {({ item }) => {
                     return (
-                        <GestureDetector gesture = {Gesture.Exclusive(props.Slide())}>
+                        <GestureDetector gesture = {props.slideToModalOn(item)}>
                         <View style = {styles.eachTrackWrapper}>
                             <View style = {styles.eachTrackImageWrapper}>
                                 <Image style = {styles.eachTrackImage} source = {require('../../../assets/pause.png')}/>
@@ -65,22 +88,16 @@ const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetail
                                 <Text style = {styles.eachTrackInfoTitle}>{item.title}</Text>
                                 <Text style = {styles.eachTrackInfoArtist}>{item.artist}</Text>
                             </View>
+
                         </View>
                         </GestureDetector>
                     );
                 }}
                 ItemSeparatorComponent = {() => <View style = {styles.eachTrackSeperator}/>}
             />
-            {
-                props.modalOn ?
-                <PlayingModeModal
-                    modalDirection = {props.modalDirection}
-                    modalLocation = {props.modalLocation}
-                /> : null
-            }
         </View>
         </SafeAreaView>
-
+        </>
         :
         <SafeAreaView style = {styles.container}>
         <View style = {{...styles.wrapper, display : 'flex', justifyContent : 'center', alignItems : 'center'}}>

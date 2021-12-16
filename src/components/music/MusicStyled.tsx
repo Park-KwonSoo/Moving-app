@@ -31,12 +31,14 @@ const styles = StyleSheet.create({
     },
 
     me : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 20,
         fontWeight : '700',
         color : '#303a52',
     },
 
     notMe : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 15,
         color : '#a0a0a0',
     },

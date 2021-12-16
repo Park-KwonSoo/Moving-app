@@ -1,57 +1,78 @@
 import React from 'react';
-import { NavigationProp, RouteProp } from '@react-navigation/native';
+import {
+    PlayingModeModal,
+    PlayingModeModalButton,
+    TouchFocusLocation,
+    ModalSize,
+    ModalLocation,
+} from '../../../config/interface';
 
 import {
-    SafeAreaView,
     View,
     Text,
-    TouchableOpacity,
+    Animated,
+    FlatList,
 } from 'react-native';
 
-import {
-    Gesture,
-    GestureDetector,
-} from 'react-native-gesture-handler';
 
 import styles from './PlayingModeModalStyle';
 
 
+
 interface PlayingModeModalProps {
-    modalDirection : string
-    modalLocation : {
-        x : number;
-        y: number;
-    };
+    height : number;
+    width : number;
+
+    modal : PlayingModeModal;
+    modalSize : ModalSize;
+    modalLocation : ModalLocation;
+
+    touchFocusLocation : TouchFocusLocation;
+
+    leftButtonSet : PlayingModeModalButton[];
+    rightButtonSet : PlayingModeModalButton[];
+
+    isSelectedButton : (index : number, modalButtonHeight : number) => boolean;
 }
 const PlayingModeModalPresenter = (props : PlayingModeModalProps) => {
-    return (
-        props.modalDirection === 'left' ?
-        <View style = {{...styles.container, top : props.modalLocation.y, right : props.modalLocation.x - 100}}>
-            <GestureDetector gesture = {
-                Gesture.Pan()
-                .onBegin(() => { console.log(' hiasdhis ' );})
-            }>
-            <View style = {styles.modalWrapper}>
-                <Text>{props.modalDirection}</Text>
-                <Text>{props.modalLocation.x}</Text>
-                <Text>{props.modalLocation.y}</Text>
-            </View>
-            </GestureDetector>
-        </View>
 
-        :
-        <View style = {{...styles.container, top : props.modalLocation.y, left : props.modalLocation.x + 100}}>
-            <GestureDetector gesture = {
-                Gesture.Pan()
-                .onBegin(() => { console.log(' hiasdhis ' );})
-            }>
-            <View style = {styles.modalWrapper}>
-                <Text>{props.modalDirection}</Text>
-                <Text>{props.modalLocation.x}</Text>
-                <Text>{props.modalLocation.y}</Text>
-            </View>
-            </GestureDetector>
-        </View>
+    const modalButtonHeight : number = props.modalSize.height / props.leftButtonSet.length;
+
+    return (
+        <Animated.View style = {[{
+            ...styles.container,
+            height : props.modalSize.height,
+            width : props.modalSize.width,
+            top : props.modalLocation.y,
+            left : props.modalLocation.x,
+        }]}>
+            <FlatList
+                style = {styles.modalWrapper}
+                data = {
+                    props.modal.modalDirection === 'left' ?
+                    props.leftButtonSet : props.rightButtonSet
+                }
+                renderItem = {({ item, index }) => {
+                    return (
+                        <View style = {
+                            props.isSelectedButton(index, modalButtonHeight)
+                            ?
+                            {
+                                ...styles.eachButtonWrapperSelected,
+                                height : modalButtonHeight,
+                            } :
+                            {
+                                ...styles.eachButtonWrapperUnselected,
+                                height : modalButtonHeight,
+                            }
+                        }>
+                            <Text style = {{...styles.eachButtonText, color : item.buttonTextColor}}>{item.buttonName}</Text>
+                        </View>
+                    );
+                }}
+                ItemSeparatorComponent={() => <View style = {styles.seperatorLine}/>}
+            />
+        </Animated.View>
     );
 };
 

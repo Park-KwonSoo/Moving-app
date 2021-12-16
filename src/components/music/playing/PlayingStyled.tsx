@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     },
 
     musicTitleText : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 21,
         fontWeight : '600',
         color : '#303a52',
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     },
 
     musicArtistText : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 15,
         fontWeight : '500',
         color : '#a0a0a0',
@@ -82,6 +84,12 @@ const styles = StyleSheet.create({
 
         paddingVertical : '2%',
         paddingHorizontal : '3%',
+    },
+
+    lyricsText : {
+        fontFamily : 'Cafe24SsurroundAir',
+        fontSize : 14,
+        fontWeight : '500',
     },
 
 });

@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
     },
 
     searchBar : {
+        fontFamily : 'Cafe24SsurroundAir',
+
         width : '70%',
 
         paddingVertical : '1%',

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
 import { Playlist, RootStackParamList } from '../../config/interface';
 
-import * as MusicUtil from '../../util/TrackPlayerUtil';
-
 import PlaylistPresenter from './PlaylistPresenter';
 import Header from '../base/header';
 import PlayingPopupContainer from '../base/playingPopup';
@@ -41,7 +39,7 @@ const PlaylistContainer = ({ navigation, route, ...props } : PlaylistProps ) => 
 
     const onGoPlaylistDetail = (playListId : number) : void => {
         navigation.navigate('TabNavigator' as never, {
-            screen : 'PlayListDetail',
+            screen : 'PlayListDetailScreen',
             params : {
                 playlistId : playListId,
             },

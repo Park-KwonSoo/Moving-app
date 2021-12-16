@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList, MovingDefaultProps } from '../../../config/interface';
-import { Track, State, ProgressState } from 'react-native-track-player';
+import { State, ProgressState } from 'react-native-track-player';
 
 import {
     TouchableOpacity,

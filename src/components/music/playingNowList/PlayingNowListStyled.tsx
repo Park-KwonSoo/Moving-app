@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     },
 
     topButtonTxt : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 15,
         fontWeight : '500',
     },
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     },
 
     eachListTitleTextSelect : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 17,
         fontWeight : '600',
         marginBottom : '5%',
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
     },
 
     eachListTitleTextUnselect : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 17,
         fontWeight : '600',
         marginBottom : '5%',
@@ -83,6 +86,7 @@ const styles = StyleSheet.create({
     },
 
     eachListArtistText : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 12,
         fontWeight : '400',
         marginLeft : '1%',

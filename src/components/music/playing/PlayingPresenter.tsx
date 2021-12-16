@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { Track } from 'react-native-track-player';
 import { RootStackParamList , MovingDefaultProps} from '../../../config/interface';
 
 import {
@@ -48,7 +47,7 @@ const PlayingPresenter = ({ navigation, route, ...props } : PlayingProps) => {
                         </View>
                     </View>
                     <View style = {styles.lyricsWrapper}>
-                        <Text>가사입니다.</Text>
+                        <Text style = {styles.lyricsText}>가사입니다.</Text>
                     </View>
                 </View>
             </SafeAreaView>

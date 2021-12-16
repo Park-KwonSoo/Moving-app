@@ -17,10 +17,11 @@ const styles = StyleSheet.create({
     },
 
     PlaylistExplain : {
+        fontFamily : 'Cafe24Ssurround',
+
         marginTop : '5%',
         fontSize : 20,
         marginLeft : '3%',
-        fontFamily : 'Jua-Regular',
     },
 
     PlaylistContainer : {
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     },
 
     EachTitle : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 20,
         fontWeight : '500',
         letterSpacing : 0.7,
@@ -67,6 +69,7 @@ const styles = StyleSheet.create({
     },
 
     EachNumOfMusic : {
+        fontFamily : 'Cafe24SsurroundAir',
         fontSize : 13,
         fontWeight : '300',
         color : '#343434',

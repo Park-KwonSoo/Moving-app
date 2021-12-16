@@ -7,9 +7,37 @@ const styles = StyleSheet.create({
     },
 
     modalWrapper : {
-        backgroundColor : '#ededed',
-        height : '100%',
+        backgroundColor : '#ddd',
+        width : '100%',
         borderRadius : 3,
+    },
+
+    eachButtonWrapperUnselected : {
+        display : 'flex',
+        justifyContent : 'center',
+        alignItems : 'center',
+        backgroundColor : 'transparent',
+    },
+
+    eachButtonWrapperSelected : {
+        minHeight : '20%',
+        display : 'flex',
+        justifyContent : 'center',
+        alignItems : 'center',
+        backgroundColor : '#fefefe',
+    },
+
+    eachButtonText : {
+        fontSize : 13,
+        fontFamily : 'Cafe24SsurroundAir',
+        fontWeight : '500',
+        letterSpacing : 1,
+    },
+
+    seperatorLine : {
+        borderWidth : 0.3,
+        backgroundColor : '#a0a0a0',
+        color : '#a0a0a0',
     },
 });
 
