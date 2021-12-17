@@ -18,6 +18,7 @@ const App = () => {
 
   useEffect(() => {
     const initializeTrackPlayerSet = async () => {
+      await TrackPlayer.setupPlayer({});
       //TrackPlayer에 capabilty 등록 : status bar에서 컨트롤 가능하게 함.
       TrackPlayer.updateOptions({
         capabilities : [

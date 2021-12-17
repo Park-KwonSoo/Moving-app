@@ -36,13 +36,17 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Jua-Regular.ttf</string>
 		<string>Cafe24SsurroundAir.ttf</string>
 		<string>BMHANNA_11yrs_ttf.ttf</string>
 		<string>Cafe24Ssurround.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
