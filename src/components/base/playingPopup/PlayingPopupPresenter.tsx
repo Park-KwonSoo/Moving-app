@@ -37,8 +37,8 @@ const PlayingPopupPresenter = ({ navigation, route, ...props } : PlayingPopupPro
                     style = {styles.musicInfoWrapper}
                     onPress = {props.onGoPlayingNowButton}
                 >
-                    <Text style = {styles.musicInfoTitle}>{props.nowTrackInfo.title}</Text>
-                    <Text style = {styles.musicInfoArtist}>{props.nowTrackInfo.artist}</Text>
+                    <Text style = {styles.musicInfoTitle}>{props.nowTrackInfo.title && props.nowTrackInfo.title.length > 22 ? `${props.nowTrackInfo.title.slice(0, 22)}...` : props.nowTrackInfo.title}</Text>
+                    <Text style = {styles.musicInfoArtist}>{props.nowTrackInfo.artist && props.nowTrackInfo.artist.length > 22 ? `${props.nowTrackInfo.artist.slice(0, 22)}...` : props.nowTrackInfo.artist}</Text>
                 </TouchableOpacity>
                 <View style = {styles.musicButtonWrapper}>
                     <TouchableOpacity

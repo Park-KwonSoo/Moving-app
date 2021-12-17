@@ -28,32 +28,13 @@ const App = () => {
         ],
       });
 
-      const trackQueue = await TrackPlayer.getQueue();
-      if (!trackQueue.length) {
-          TrackPlayer.add([
-              {
-                  url : require('./assets/music/1.m4a'),
-                  title : '임시용',
-                  artist : '박권수',
-                  contentType : 'audio/m4a',
-                  index : 0,
-                  pitchAlgorithm : PitchAlgorithm.Music,
-              },
-              {
-                  url : require('./assets/music/1.m4a'),
-                  title : '두번째곡입니당당',
-                  artist : '박권수입니다람쥐',
-                  contentType : 'audio/m4a',
-                  index : 1,
-                  pitchAlgorithm : PitchAlgorithm.Music,
-              },
-          ]);
-      }
-
     };
     initializeTrackPlayerSet();
 
-    return () => { console.log('app down'); };
+    return () => {
+      TrackPlayer.stop();
+      console.log('app down');
+    };
   }, []);
 
 

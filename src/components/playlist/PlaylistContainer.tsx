@@ -24,11 +24,13 @@ const PlaylistContainer = ({ navigation, route, ...props } : PlaylistProps ) => 
                         playlistId : 1,
                         playlistName : '가요',
                         playlistTrackCount : 5,
+                        playlistCover : 'https://images.genius.com/a31d79c5da743e13480e5e9de693d5ce.1000x1000x1.jpg',
                     },
                     {
                         playlistId : 2,
-                        playlistName : '팝송',
+                        playlistName : '팝',
                         playlistTrackCount : 7,
+                        playlistCover : 'https://image.bugsm.co.kr/album/images/1000/8673/867317.jpg',
                     },
                 ]);
             };

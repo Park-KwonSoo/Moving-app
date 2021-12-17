@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
 
     musicInfoWrapper : {
         alignSelf : 'center',
-        marginTop : '35%',
+        marginTop : '25%',
 
         display : 'flex',
         flexDirection : 'column',
         alignItems : 'center',
         justifyContent : 'center',
-        width : '60%',
+        width : '70%',
     },
 
     musicAlbumCoverWrapper : {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
     musicTitleWrapper : {
         marginTop : '10%',
-        width : '100%',
+        width : '150%',
         display : 'flex',
         flexDirection : 'row',
         alignItems : 'center',

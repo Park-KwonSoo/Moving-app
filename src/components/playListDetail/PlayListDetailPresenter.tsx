@@ -66,11 +66,17 @@ const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetail
         <View style = {styles.wrapper}>
             <View style = {styles.playListHeader}>
                 <View style = {styles.playListImageWrapper}>
-                    <Image style = {styles.playListImage} source = {require('../../../assets/search-focused.png')}/>
+                    <Image style = {styles.playListImage} source = {props.playListDetail.playlistCover ? { url : props.playListDetail.playlistCover } : require('../../../assets/unknown.png')}/>
                 </View>
                 <View style = {styles.playListInfoWrapper}>
-                    <Text style = {styles.playListCreatedDateInfo}>최근 수정일</Text>
-                    <Text style = {styles.playListCreatedDate}>{props.playListDetail.createDate}</Text>
+                    <View style = {styles.playListCreatedDateWrapper}>
+                        <Text style = {styles.playListCreatedDateInfo}>최근 수정일</Text>
+                        <Text style = {styles.playListCreatedDate}>{props.playListDetail.createDate}</Text>
+                    </View>
+                    <View style = {styles.playListOtherInfoWrapper}>
+                        <Text style = {styles.playListNumOfTrackInfo}>총 </Text>
+                        <Text style = {styles.playListNumOfTrack}>{props.playListDetail.playlistTrackList.length + '곡'}</Text>
+                    </View>
                 </View>
             </View>
             <FlatList
@@ -82,11 +88,11 @@ const PlayListDetailPresenter = ({ navigation, route, ...props} : PlayListDetail
                         <GestureDetector gesture = {props.slideToModalOn(item)}>
                         <View style = {styles.eachTrackWrapper}>
                             <View style = {styles.eachTrackImageWrapper}>
-                                <Image style = {styles.eachTrackImage} source = {require('../../../assets/pause.png')}/>
+                                <Image style = {styles.eachTrackImage} source = {item.albumCover ? {url : item.albumCover} : require('../../../assets/unknown.png')}/>
                             </View>
                             <View style = {styles.eachTrackInfoWrapper}>
-                                <Text style = {styles.eachTrackInfoTitle}>{item.title}</Text>
-                                <Text style = {styles.eachTrackInfoArtist}>{item.artist}</Text>
+                                <Text style = {styles.eachTrackInfoTitle}>{item.title && item.title.length > 22 ? `${item.title.slice(0, 22)}...` : item.title}</Text>
+                                <Text style = {styles.eachTrackInfoArtist}>{item.artist && item.artist.length > 22 ? `${item.artist.slice(0, 22)}...` : item.artist}</Text>
                             </View>
 
                         </View>

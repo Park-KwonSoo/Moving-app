@@ -41,6 +41,29 @@ const styles = StyleSheet.create({
         borderRadius : 5,
     },
 
+    swipeDeleteWrapper : {
+        width : '20%',
+        height : '100%',
+        backgroundColor : '#FF6032',
+    },
+
+    swipeDeleteImageWrapper : {
+        height : '100%',
+        width : '100%',
+        aspectRatio :1,
+
+        display : 'flex',
+        flexDirection : 'column',
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
+
+    swipeDeleteImage : {
+        height : '40%',
+        width : '40%',
+        resizeMode : 'contain',
+    },
+
     eachListWrapper : {
         display : 'flex',
         flexDirection : 'row',
@@ -70,8 +93,8 @@ const styles = StyleSheet.create({
     },
 
     eachListTitleTextSelect : {
-        fontFamily : 'Cafe24SsurroundAir',
-        fontSize : 17,
+        fontFamily : 'Cafe24Ssurround',
+        fontSize : 16,
         fontWeight : '600',
         marginBottom : '5%',
         color : '#92579d',
@@ -79,7 +102,7 @@ const styles = StyleSheet.create({
 
     eachListTitleTextUnselect : {
         fontFamily : 'Cafe24SsurroundAir',
-        fontSize : 17,
+        fontSize : 16,
         fontWeight : '600',
         marginBottom : '5%',
         color : '#343434',

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFocusEffect, NavigationProp, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../config/interface';
 
-import { onPlayOrPause, onNext, onPrev } from '../../util/TrackPlayerUtil';
+import { onPlayOrPause, onNext, onPrev, onDeleteOneTrack } from '../../util/TrackPlayerUtil';
 import useAsyncStorage from '../../util/useAsyncStorage';
 
 import TrackPlayer, {
@@ -135,14 +135,12 @@ const MusicContainer = ({ navigation, route, ...props } : MusicProps) => {
         setStoredShuffleMode(String(changeMode));
     };
 
-    //제스처를 이용하여 볼륨을 컨트롤
-    const onGestureVolumeControl =
-        Gesture.Manual()
-        .enabled(true)
-        .onTouchesMove((data : GestureTouchEvent) => {
-            SystemSetting.setVolume(1);
-            console.log(data.changedTouches[0].y);
-        });
+
+    //왼쪽 방향으로 슬라이드하여, 현재 곡 재생 목록에서 삭제
+    const swipeToDelete = async (index : number) : Promise<void> => {
+        await onDeleteOneTrack(index);
+        setNowTrackQueue(await TrackPlayer.getQueue());
+    };
 
 
     useEffect(() => {
@@ -188,7 +186,6 @@ const MusicContainer = ({ navigation, route, ...props } : MusicProps) => {
 
                     nowTrackInfo = {nowTrackInfo}
 
-                    onGestureVolumeControl = {onGestureVolumeControl}
                 /> :
                 <PlayingNowList
                     navigation = {navigation}
@@ -198,6 +195,8 @@ const MusicContainer = ({ navigation, route, ...props } : MusicProps) => {
 
                     nowTrackQueue = {nowTrackQueue}
                     onPlayThisMusic = {onPlayThisMusic}
+
+                    swipeToDelete = {swipeToDelete}
                 />
             }
         </MusicPresenter>

@@ -29,6 +29,7 @@ export const onNext = async(playingState : State) : Promise<Track> => {
 
     //마지막 곡이라면 다음 곡을 재생함
     const isLast : boolean = await TrackPlayer.getCurrentTrack() === (await TrackPlayer.getQueue()).length - 1;
+    await TrackPlayer.pause();
     if (!isLast) {
         await TrackPlayer.skipToNext();
         if (playingState === State.Playing || playingState === State.Buffering)   { await TrackPlayer.play(); }
@@ -55,6 +56,7 @@ export const onNext = async(playingState : State) : Promise<Track> => {
 export const onPrev = async (playingState : State) : Promise<Track> => {
 
     const position : number = await TrackPlayer.getPosition();
+    await TrackPlayer.pause();
 
     //만약 재생한지 3초가 지났다면 현재 곡을 다시 재생한다.
     if (position >= 3) {
@@ -84,6 +86,22 @@ export const onPrev = async (playingState : State) : Promise<Track> => {
         }
     }
 };
+
+/**
+ * 특정 곡 한개를, 플레이리스트에서 삭제한다.
+ * @param index : 재생목록에서 삭제할 음악 index 번호
+ */
+export const onDeleteOneTrack = async(index : number) : Promise<void> => {
+    const nowPlaying = await TrackPlayer.getCurrentTrack();
+    // const playingState = await TrackPlayer.getState();
+    if (index === nowPlaying) {
+        await TrackPlayer.skipToNext();
+        await TrackPlayer.remove(index);
+    } else {
+        await TrackPlayer.remove(index);
+    }
+};
+
 
 /**
  * 한 곡을 현재 재생중인 목록의 바로 다음 곡으로 추가함.
@@ -148,11 +166,12 @@ export const addTrackToPlayingListToLast = async(track : Track) : Promise<void> 
 };
 
 /**
- * 현재 재생중인 목록에 새로운 플레이리스트를 모두 추가한다.
- * @param trackList
+ * 현재 재생중인 목록에 새로운 플레이리스트를 추가한다.
+ * @param trackList : 추가할 목록
+ * @param insertedIndex : 추가될 위치 = 없으면 마지막으로 추가
  */
-export const addTrackListToPlayingList = async(trackList : Track[]) : Promise<void> => {
-    await TrackPlayer.add(trackList);
+export const addTrackListToPlayingList = async(trackList : Track[], insertedIndex? : number | undefined) : Promise<void> => {
+    await TrackPlayer.add(trackList,insertedIndex);
 };
 
 /**
@@ -174,6 +193,6 @@ export const changePlayListByOneTrack = async(track : Track) : Promise<void> => 
 export const changePlayListByPlayList = async(trackList : Track[]) : Promise<void> => {
     //현재 음악을 멈추고, 초기화를 진행함
     await TrackPlayer.reset();
-
     await TrackPlayer.add(trackList);
+    await TrackPlayer.play();
 };

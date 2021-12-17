@@ -38,7 +38,7 @@ const PlaylistPresenter = ({ navigation, route, ...props } : PlaylistProps) => {
                             onPress = {() => props.onGoPlaylistDetail(item.playlistId)}
                         >
                             <View style = {styles.EachImageWrapper}>
-                                <Image style = {styles.EachImage} source = {require('../../../assets/search-focused.png')} />
+                                <Image style = {styles.EachImage} source = {item.playlistCover ? {url : item.playlistCover} : require('../../../assets/unknown.png')} />
                             </View>
                             <View style = {styles.EachInfoWrapper}>
                                 <Text style = {styles.EachTitle}>{item.playlistName}</Text>

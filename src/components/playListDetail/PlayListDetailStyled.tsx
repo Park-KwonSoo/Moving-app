@@ -55,7 +55,13 @@ const styles = StyleSheet.create({
         width : '50%',
         display : 'flex',
         flexDirection : 'column',
+        justifyContent : 'space-between',
         height : '80%',
+    },
+
+    playListCreatedDateWrapper : {
+        display : 'flex',
+        flexDirection : 'column',
     },
 
     playListCreatedDateInfo : {
@@ -63,6 +69,7 @@ const styles = StyleSheet.create({
         fontSize : 13,
         fontWeight : '400',
         color : '#a0a0a0',
+        marginBottom : '2%',
     },
 
     playListCreatedDate : {
@@ -72,8 +79,23 @@ const styles = StyleSheet.create({
         fontWeight : '500',
         color : '#343434',
         letterSpacing : 1,
+    },
 
-        marginBottom : '2%',
+    playListOtherInfoWrapper : {
+        display : 'flex',
+        flexDirection : 'row',
+        justifyContent : 'flex-end',
+        paddingRight : '5%',
+    },
+
+    playListNumOfTrackInfo : {
+        fontFamily : 'Cafe24SsurroundAir',
+        color : '#a0a0a0',
+    },
+
+    playListNumOfTrack : {
+        fontFamily : 'Cafe24SsurroundAir',
+        color : '#343434',
     },
 
     playListBody : {

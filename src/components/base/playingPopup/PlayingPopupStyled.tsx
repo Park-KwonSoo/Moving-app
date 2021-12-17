@@ -2,14 +2,14 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container : {
-        borderColor : '#ddd',
+        borderTopColor : '#ddd',
         borderTopWidth : 1,
         position : 'absolute',
         top : '90%',
         height : '10%',
         width : '100%',
         zIndex : 50,
-        backgroundColor : 'transparent',
+        backgroundColor : 'rgba(255, 255, 255, .9)',
         display : 'flex',
         flexDirection : 'column',
     },

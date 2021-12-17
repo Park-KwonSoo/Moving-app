@@ -60,53 +60,134 @@ const PlayListDetailContainer = ({ navigation, route, ...props } : PlayListDetai
         React.useCallback(() => {
             const fetchData = async() => {
                 //playListId의 값을 이용해 playListDetail을 설정한다.
-                setPlayListDetail({
-                    playlistId : route.params.playlistId,
-                    playlistName : '가요',
-                    playlistTrackList : [
-                        {
-                            url : require('../../../assets/music/1.m4a'),
-                            title : '임시용',
-                            artist : '박권수',
-                            contentType : 'audio/m4a',
-                            index : 0,
-                            pitchAlgorithm : PitchAlgorithm.Music,
-                        },
-                        {
-                            url : require('../../../assets/music/1.m4a'),
-                            title : '두번째곡입니당당',
-                            artist : '박권수입니다람쥐',
-                            contentType : 'audio/m4a',
-                            index : 1,
-                            pitchAlgorithm : PitchAlgorithm.Music,
-                        },
-                        {
-                            url : require('../../../assets/music/1.m4a'),
-                            title : '세번재',
-                            artist : '333',
-                            contentType : 'audio/m4a',
-                            index : 1,
-                            pitchAlgorithm : PitchAlgorithm.Music,
-                        },
-                        {
-                            url : require('../../../assets/music/1.m4a'),
-                            title : '네번째곡곡',
-                            artist : '412444',
-                            contentType : 'audio/m4a',
-                            index : 1,
-                            pitchAlgorithm : PitchAlgorithm.Music,
-                        },
-                        {
-                            url : require('../../../assets/music/1.m4a'),
-                            title : '다ㅣ섯번째곡',
-                            artist : 'redbean096',
-                            contentType : 'audio/m4a',
-                            index : 1,
-                            pitchAlgorithm : PitchAlgorithm.Music,
-                        },
-                    ],
-                    createDate : '2021-12-11',
-                });
+                if (route.params.playlistId === 1) {
+                    setPlayListDetail({
+                        playlistId : route.params.playlistId,
+                        playlistName : '가요',
+                        playlistTrackList : [
+                            {
+                                url : require('../../../assets/music/sokodomo.mp3'),
+                                title : '회전목마 (Feat. Zion.T, 원슈타인) (Prod. Slom) (쇼미더머니 10 Episode 2)',
+                                artist : 'sokodomo (소코도모)',
+                                albumCover : 'https://images.genius.com/a31d79c5da743e13480e5e9de693d5ce.1000x1000x1.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/beo.mp3'),
+                                title : 'Counting Stars (Feat. Beenzino 빈지노)',
+                                artist : "BE'O (비오)",
+                                albumCover : 'https://blog.kakaocdn.net/dn/b89LZa/btrnC3HBsaQ/IyY2khsFwNT0xVsBbplKKk/img.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/muddthestudent.mp3'),
+                                title : '불협화음 (Feat. AKMU) (Prod. GRAY) (쇼미더머니 10 Semi Final)',
+                                artist : 'Mudd the student (머드 더 스튜던트)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/204353/20435301.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/basick.mp3'),
+                                title : '만남은 쉽고 이별은 어려워 (Feat. Leellamarz) (Prod. TOIL) (쇼미더머니 10 Episode 3)',
+                                artist : 'Basick (베이식)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/204336/20433609.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/ive.mp3'),
+                                title : 'ELEVEN',
+                                artist : 'IVE (아이브)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/40683/4068361.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                        ],
+                        createDate : '2021-12-11',
+                        playlistCover : 'https://images.genius.com/a31d79c5da743e13480e5e9de693d5ce.1000x1000x1.jpg',
+                    });
+                } else if (route.params.playlistId === 2) {
+                    setPlayListDetail({
+                        playlistId : route.params.playlistId,
+                        playlistName : '팝',
+                        playlistTrackList : [
+                            {
+                                url : require('../../../assets/music/billie.mp3'),
+                                title : 'you should see me in a crown',
+                                artist : 'Billie Eilish(빌리 아일리시)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/8673/867317.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/taylor.mp3'),
+                                title : 'Look What You Made Me Do',
+                                artist : 'Taylor Swift(테일러 스위프트)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/6659/665912.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/weekend.mp3'),
+                                title : 'Earned It (Fifty Shades Of Grey) (From The "Fifty Shades Of Grey" Soundtrack)',
+                                artist : 'The Weeknd(위켄드)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/4734/473495.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/kaori.mp3'),
+                                title : 'STAY',
+                                artist : 'The Kid LAROI , Justin Bieber(저스틴 비버)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/158177/15817728.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/charlotte.mp3'),
+                                title : "Joke's On You",
+                                artist : 'Charlotte Lawrence(샬롯 로렌스)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/9625/962503.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/ariana.mp3'),
+                                title : 'Santa Tell Me',
+                                artist : 'Ariana Grande(아리아나 그란데)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/4656/465672.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+                            {
+                                url : require('../../../assets/music/sia.mp3'),
+                                title : 'Snowman',
+                                artist : 'Sia(시아)',
+                                albumCover : 'https://image.bugsm.co.kr/album/images/1000/6803/680332.jpg',
+                                contentType : 'audio/m4a',
+                                index : 0,
+                                pitchAlgorithm : PitchAlgorithm.Music,
+                            },
+
+                        ],
+                        createDate : '2021-12-17',
+                        playlistCover : 'https://image.bugsm.co.kr/album/images/1000/8673/867317.jpg',
+                    });
+                }
             };
             fetchData();
         }, [route])

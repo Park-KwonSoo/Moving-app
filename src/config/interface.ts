@@ -50,6 +50,7 @@ export declare type Playlist = {
     playlistId : number;
     playlistName : string;
     playlistTrackCount : number;
+    playlistCover? : string;
 }
 
 //플레이리스트의 상세 정보 인터페이스
@@ -57,6 +58,7 @@ export declare type PlayListDetail = {
     playlistId : number;
     playlistName : string;
     playlistTrackList : Track[];
+    playlistCover? : string;
     createDate : string;
 };
 

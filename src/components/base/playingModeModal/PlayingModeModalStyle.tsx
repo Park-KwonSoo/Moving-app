@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
 
     eachButtonText : {
-        fontSize : 13,
+        fontSize : 12,
         fontFamily : 'Cafe24SsurroundAir',
         fontWeight : '500',
         letterSpacing : 1,
