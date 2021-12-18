@@ -190,9 +190,12 @@ export const changePlayListByOneTrack = async(track : Track) : Promise<void> => 
  * 현재 플레이리스트를 모두 교체함
  * @param trackList : 새로운 트랙 리스트
  */
-export const changePlayListByPlayList = async(trackList : Track[]) : Promise<void> => {
+export const changePlayListByPlayList = async(trackList : Track[], currentTrackIndex? : number) : Promise<void> => {
     //현재 음악을 멈추고, 초기화를 진행함
     await TrackPlayer.reset();
     await TrackPlayer.add(trackList);
+    if (currentTrackIndex !== undefined) {
+        await TrackPlayer.skip(currentTrackIndex);
+    }
     await TrackPlayer.play();
 };

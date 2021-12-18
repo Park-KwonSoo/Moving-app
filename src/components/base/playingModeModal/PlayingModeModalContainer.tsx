@@ -68,8 +68,11 @@ const PlayingModeModalContainer = (props : PlayingModeModalProps) => {
 
     //현재 플레이리스트로 전체 변경
     const onChangePlayList = async() : Promise<void> => {
-        if (props.playListDetail !== undefined) {
-            await MusicUtil.changePlayListByPlayList(props.playListDetail.playlistTrackList);
+        if (props.playListDetail !== undefined && props.selectTrack !== undefined) {
+            const currentTrackIndex : number | undefined = props.playListDetail?.playlistTrackList.findIndex((track : Track) => {
+                return track === props.selectTrack;
+            });
+            await MusicUtil.changePlayListByPlayList(props.playListDetail.playlistTrackList, currentTrackIndex);
         }
     };
 
