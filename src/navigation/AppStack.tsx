@@ -9,6 +9,7 @@ import {
   RootStackParamList,
 } from '../config/interface';
 
+import GuideNavigator from '../components/guide';
 import TabNavigator from './tab/TabNavigator';
 import MusicNavigator from '../components/music';
 
@@ -21,6 +22,14 @@ export default () => {
         gestureEnabled : true,
       }}
     >
+      <Stack.Screen
+        name = "GuideNavigator"
+        component = {GuideNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
+
       <Stack.Screen
         name="TabNavigator"
         component = {TabNavigator}

@@ -15,6 +15,7 @@ interface DefaultRoute {
 
 //root stack paramlist
 export type RootStackParamList = {
+    GuideNavigator : DefaultRoute;
     TabNavigator : DefaultRoute;
     MusicNavigator : DefaultRoute;
 
